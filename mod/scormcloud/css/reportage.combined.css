@@ -1,0 +1,1111 @@
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
+html.reportage{color:#000;background:#FFF;}
+.reportage body, .reportage div, .reportage dl, .reportage dt, .reportage dd, .reportage ul, .reportage ol, .reportage li, .reportage h1, .reportage h2, .reportage h3, .reportage h4, .reportage h5, .reportage h6, .reportage pre, .reportage code, .reportage form, .reportage fieldset, .reportage legend, .reportage input, .reportage button, .reportage textarea, .reportage p, .reportage blockquote, .reportage th, .reportage td{margin:0;padding:0;}
+.reportage table{border-collapse:collapse;border-spacing:0;}
+.reportage fieldset, .reportage img{border:0;}
+.reportage address, .reportage caption, .reportage cite, .reportage code, .reportage dfn, .reportage em, .reportage strong, .reportage th, .reportage var, .reportage optgroup{font-style:inherit;font-weight:inherit;}
+.reportage del, .reportage ins{text-decoration:none;}
+.reportage li{list-style:none;}
+.reportage caption, .reportage th{text-align:left;}
+.reportage h1, .reportage h2, .reportage h3, .reportage h4, .reportage h5, .reportage h6{font-size:100%;font-weight:normal;}
+.reportage q:before, .reportage q:after{content:'';}
+.reportage abbr, .reportage acronym{border:0;font-variant:normal;}
+.reportage sup{vertical-align:baseline;}
+.reportage sub{vertical-align:baseline;}
+.reportage legend{color:#000;}
+.reportage input, .reportage button, .reportage textarea, .reportage select, .reportage optgroup, .reportage option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}
+.reportage input, .reportage button, .reportage textarea, .reportage select{*font-size:100%;}
+.reportage {font:13px/1.231 arial, helvetica, clean, sans-serif;*font-size:small;*font:x-small;}
+.reportage select, .reportage input, .reportage button, .reportage textarea, .reportage button{font:99% arial, helvetica, clean, sans-serif;}
+.reportage table{font-size:inherit;font:100%;}
+.reportage pre, .reportage code, .reportage kbd, .reportage samp, .reportage tt{font-family:monospace;*font-size:108%;line-height:100%;}
+.reportage body{text-align:center;}
+.reportage #doc, .reportage #doc2, .reportage #doc3, .reportage #doc4, .reportage .yui-t1, .reportage .yui-t2, .reportage .yui-t3, .reportage .yui-t4, .reportage .yui-t5, .reportage .yui-t6, .reportage .yui-t7{margin:auto;text-align:left;width:57.69em;*width:56.25em;}
+.reportage #doc2{width:73.076em;*width:71.25em;}
+.reportage #doc3{margin:auto 10px;width:auto;}
+.reportage #doc4{width:74.923em;*width:73.05em;}
+.reportage .yui-b{position:relative;}
+.reportage .yui-b{_position:static;}
+.reportage #yui-main .yui-b{position:static;}
+.reportage #yui-main, .reportage .yui-g .yui-u .yui-g{width:100%;}
+.reportage .yui-t1 #yui-main, .reportage .yui-t2 #yui-main, .reportage .yui-t3 #yui-main{float:right;margin-left:-25em;}
+.reportage .yui-t4 #yui-main, .reportage .yui-t5 #yui-main, .reportage .yui-t6 #yui-main{float:left;margin-right:-25em;}
+.reportage .yui-t1 .yui-b{float:left;width:12.30769em;*width:12.00em;}
+.reportage .yui-t1 #yui-main .yui-b{margin-left:13.30769em;*margin-left:13.05em;}
+.reportage .yui-t2 .yui-b{float:left;width:13.8461em;*width:13.50em;}
+.reportage .yui-t2 #yui-main .yui-b{margin-left:14.8461em;*margin-left:14.55em;}
+.reportage .yui-t3 .yui-b{float:left;width:23.0769em;*width:22.50em;}
+.reportage .yui-t3 #yui-main .yui-b{margin-left:24.0769em;*margin-left:23.62em;}
+.reportage .yui-t4 .yui-b{float:right;width:13.8456em;*width:13.50em;}
+.reportage .yui-t4 #yui-main .yui-b{margin-right:14.8456em;*margin-right:14.55em;}
+.reportage .yui-t5 .yui-b{float:right;width:18.4615em;*width:18.00em;}
+.reportage .yui-t5 #yui-main .yui-b{margin-right:19.4615em;*margin-right:19.125em;}
+.reportage .yui-t6 .yui-b{float:right;width:23.0769em;*width:22.50em;}
+.reportage .yui-t6 #yui-main .yui-b{margin-right:24.0769em;*margin-right:23.62em;}
+.reportage .yui-t7 #yui-main .yui-b{display:block;margin:0 0 1em 0;}
+.reportage #yui-main .yui-b{float:none;width:auto;}
+.reportage .yui-gb .yui-u, .reportage .yui-g .yui-gb .yui-u, .reportage .yui-gb .yui-g, .reportage .yui-gb .yui-gb, .reportage .yui-gb .yui-gc, .reportage .yui-gb .yui-gd, .reportage .yui-gb .yui-ge, .reportage .yui-gb .yui-gf, .reportage .yui-gc .yui-u, .reportage .yui-gc .yui-g, .reportage .yui-gd .yui-u{float:left;}
+.reportage .yui-g .yui-u, .reportage .yui-g .yui-g, .reportage .yui-g .yui-gb, .reportage .yui-g .yui-gc, .reportage .yui-g .yui-gd, .reportage .yui-g .yui-ge, .reportage .yui-g .yui-gf, .reportage .yui-gc .yui-u, .reportage .yui-gd .yui-g, .reportage .yui-g .yui-gc .yui-u, .reportage .yui-ge .yui-u, .reportage .yui-ge .yui-g, .reportage .yui-gf .yui-g, .reportage .yui-gf .yui-u{float:right;}
+.reportage .yui-g div.first, .reportage .yui-gb div.first, .reportage .yui-gc div.first, .reportage .yui-gd div.first, .reportage .yui-ge div.first, .reportage .yui-gf div.first, .reportage .yui-g .yui-gc div.first, .reportage .yui-g .yui-ge div.first, .reportage .yui-gc div.first div.first{float:left;}
+.reportage .yui-g .yui-u, .reportage .yui-g .yui-g, .reportage .yui-g .yui-gb, .reportage .yui-g .yui-gc, .reportage .yui-g .yui-gd, .reportage .yui-g .yui-ge, .reportage .yui-g .yui-gf{width:49.1%;}
+.reportage .yui-gb .yui-u, .reportage .yui-g .yui-gb .yui-u, .reportage .yui-gb .yui-g, .reportage .yui-gb .yui-gb, .reportage .yui-gb .yui-gc, .reportage .yui-gb .yui-gd, .reportage .yui-gb .yui-ge, .reportage .yui-gb .yui-gf, .reportage .yui-gc .yui-u, .reportage .yui-gc .yui-g, .reportage .yui-gd .yui-u{width:32%;margin-left:1.99%;}
+.reportage .yui-gb .yui-u{*margin-left:1.9%;*width:31.9%;}
+.reportage .yui-gc div.first, .reportage .yui-gd .yui-u{width:66%;}
+.reportage .yui-gd div.first{width:32%;}
+.reportage .yui-ge div.first, .reportage .yui-gf .yui-u{width:74.2%;}
+.reportage .yui-ge .yui-u, .reportage .yui-gf div.first{width:24%;}
+.reportage .yui-g .yui-gb div.first, .reportage .yui-gb div.first, .reportage .yui-gc div.first, .reportage .yui-gd div.first{margin-left:0;}
+.reportage .yui-g .yui-g .yui-u, .reportage .yui-gb .yui-g .yui-u, .reportage .yui-gc .yui-g .yui-u, .reportage .yui-gd .yui-g .yui-u, .reportage .yui-ge .yui-g .yui-u, .reportage .yui-gf .yui-g .yui-u{width:49%;*width:48.1%;*margin-left:0;}
+.reportage .yui-g .yui-g .yui-u{width:48.1%;}
+.reportage .yui-g .yui-gb div.first, .reportage .yui-gb .yui-gb div.first{*margin-right:0;*width:32%;_width:31.7%;}
+.reportage .yui-g .yui-gc div.first, .reportage .yui-gd .yui-g{width:66%;}
+.reportage .yui-gb .yui-g div.first{*margin-right:4%;_margin-right:1.3%;}
+.reportage .yui-gb .yui-gc div.first, .reportage .yui-gb .yui-gd div.first{*margin-right:0;}
+.reportage .yui-gb .yui-gb .yui-u, .reportage .yui-gb .yui-gc .yui-u{*margin-left:1.8%;_margin-left:4%;}
+.reportage .yui-g .yui-gb .yui-u{_margin-left:1.0%;}
+.reportage .yui-gb .yui-gd .yui-u{*width:66%;_width:61.2%;}
+.reportage .yui-gb .yui-gd div.first{*width:31%;_width:29.5%;}
+.reportage .yui-g .yui-gc .yui-u, .reportage .yui-gb .yui-gc .yui-u{width:32%;_float:right;margin-right:0;_margin-left:0;}
+.reportage .yui-gb .yui-gc div.first{width:66%;*float:left;*margin-left:0;}
+.reportage .yui-gb .yui-ge .yui-u, .reportage .yui-gb .yui-gf .yui-u{margin:0;}
+.reportage .yui-gb .yui-gb .yui-u{_margin-left:.7%;}
+.reportage .yui-gb .yui-g div.first, .reportage .yui-gb .yui-gb div.first{*margin-left:0;}
+.reportage .yui-gc .yui-g .yui-u, .reportage .yui-gd .yui-g .yui-u{*width:48.1%;*margin-left:0;}
+.reportage .yui-gb .yui-gd div.first{width:32%;}
+.reportage .yui-g .yui-gd div.first{_width:29.9%;}
+.reportage .yui-ge .yui-g{width:24%;}
+.reportage .yui-gf .yui-g{width:74.2%;}
+.reportage .yui-gb .yui-ge div.yui-u, .reportage .yui-gb .yui-gf div.yui-u{float:right;}
+.reportage .yui-gb .yui-ge div.first, .reportage .yui-gb .yui-gf div.first{float:left;}
+.reportage .yui-gb .yui-ge .yui-u, .reportage .yui-gb .yui-gf div.first{*width:24%;_width:20%;}
+.reportage .yui-gb .yui-ge div.first, .reportage .yui-gb .yui-gf .yui-u{*width:73.5%;_width:65.5%;}
+.reportage .yui-ge div.first .yui-gd .yui-u{width:65%;}
+.reportage .yui-ge div.first .yui-gd div.first{width:32%;}
+.reportage #hd:after, .reportage #bd:after, .reportage #ft:after, .reportage .yui-g:after, .reportage .yui-gb:after, .reportage .yui-gc:after, .reportage .yui-gd:after, .reportage .yui-ge:after, .reportage .yui-gf:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.reportage #hd, .reportage #bd, .reportage #ft, .reportage .yui-g, .reportage .yui-gb, .reportage .yui-gc, .reportage .yui-gd, .reportage .yui-ge, .reportage .yui-gf{zoom:1;}
+/*
+Copyright (c) 2009, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.8.0r4
+*/
+/* Menu & MenuBar styles */
+
+.reportage .yuimenu {
+
+    top: -999em;
+    left: -999em;
+
+}
+
+.reportage .yuimenubar {
+
+    position: static;
+
+}
+
+.reportage .yuimenu .yuimenu,
+.reportage .yuimenubar .yuimenu {
+
+    position: absolute;
+
+}
+
+.reportage .yuimenubar li, 
+.reportage .yuimenu li {
+
+    list-style-type: none;    
+
+}
+
+.reportage .yuimenubar ul, 
+.reportage .yuimenu ul,
+.reportage .yuimenubar li, 
+.reportage .yuimenu li,
+.reportage .yuimenu h6,
+.reportage .yuimenubar h6 { 
+
+    margin: 0;
+    padding: 0;
+
+}
+
+.reportage .yuimenuitemlabel,
+.reportage .yuimenubaritemlabel {
+
+    text-align: left;
+    white-space: nowrap;
+
+}
+
+
+/* 
+    The following style rule trigger the "hasLayout" property in 
+    IE (http://msdn2.microsoft.com/en-us/library/ms533776.aspx) for a
+    MenuBar instance's <ul> element, allowing both to clear their floated 
+    child <li> elements.
+*/
+
+.reportage .yuimenubar ul {
+
+    *zoom: 1;
+
+}
+
+
+/* 
+    Remove the "hasLayout" trigger for submenus of MenuBar instances as it 
+    is unnecessary. 
+*/
+
+.reportage .yuimenubar .yuimenu ul {
+
+    *zoom: normal;
+
+}
+
+/*
+    The following style rule allows a MenuBar instance's <ul> element to clear
+    its floated <li> elements in Firefox, Safari and and Opera.
+*/
+
+.reportage .yuimenubar>.bd>ul:after {
+
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+    line-height: 0;
+
+}
+
+.reportage .yuimenubaritem {
+
+    float: left;
+
+}
+
+.reportage .yuimenubaritemlabel,
+.reportage .yuimenuitemlabel {
+
+    display: block;
+
+}
+
+.reportage .yuimenuitemlabel .helptext {
+
+    font-style: normal;
+    display: block;
+    
+    /*
+        The value for the left margin controls how much the help text is
+        offset from the text of the menu item.  This value will need to 
+        be customized depending on the longest text label of a menu item.
+    */
+    
+    margin: -1em 0 0 10em;
+    
+}
+
+/*
+    PLEASE NOTE: The <div> element used for a menu's shadow is appended 
+    to its root element via JavaScript once it has been rendered.  The 
+    code that creates the shadow lives in the menu's public "onRender" 
+    event handler that is a prototype method of YAHOO.widget.Menu.  
+    Implementers wishing to remove a menu's shadow or add any other markup
+    required for a given skin for menu should override the "onRender" method.
+*/
+
+.reportage .yui-menu-shadow {
+
+    position: absolute;
+    visibility: hidden;
+    z-index: -1;
+
+}
+
+.reportage .yui-menu-shadow-visible {
+
+    top: 2px;
+    right: -3px;
+    left: -3px;
+    bottom: -3px;
+    visibility: visible;
+
+}
+
+
+/*
+
+There are two known issues with YAHOO.widget.Overlay (the superclass class of 
+Menu) that manifest in Gecko-based browsers on Mac OS X:
+
+    1) Elements with scrollbars will poke through Overlay instances floating 
+       above them.
+    
+    2) An Overlay's scrollbars and the scrollbars of its child nodes remain  
+       visible when the Overlay is hidden.
+
+To fix these bugs in Menu (a subclass of YAHOO.widget.Overlay):
+
+    1) The "overflow" property of a Menu instance's shadow element and child 
+       nodes is toggled between "hidden" and "auto" (through the application  
+       and removal of the "hide-scrollbars" and "show-scrollbars" CSS classes)
+       as its "visibility" configuration property is toggled between 
+       "false" and "true."
+    
+    2) The "display" property of <select> elements that are child nodes of the 
+       Menu instance's root element is set to "none" when it is hidden.
+
+PLEASE NOTE:  
+  
+    1) The "hide-scrollbars" and "show-scrollbars" CSS classes classes are 
+       applied only for Gecko on Mac OS X and are added/removed to/from the 
+       Overlay's root HTML element (DIV) via the "hideMacGeckoScrollbars" and 
+       "showMacGeckoScrollbars" methods of YAHOO.widget.Overlay.
+    
+    2) There may be instances where the CSS for a web page or application 
+       contains style rules whose specificity override the rules implemented by 
+       the Menu CSS files to fix this bug.  In such cases, is necessary to 
+       leverage the provided "hide-scrollbars" and "show-scrollbars" classes to 
+       write custom style rules to guard against this bug.
+
+** For more information on this issue, see:
+
+   + https://bugzilla.mozilla.org/show_bug.cgi?id=187435
+   + YUILibrary bug #1723530
+
+*/
+
+.reportage .hide-scrollbars * {
+
+	overflow: hidden;
+
+}
+
+.reportage .hide-scrollbars select {
+
+	display: none;
+
+}
+
+
+/*
+
+The following style rule (".yuimenu.show-scrollbars") overrides the 
+".show-scrollbars" rule defined in container-core.css which sets the 
+"overflow" property of a YAHOO.widget.Overlay instance's root HTML element to 
+"auto" when it is visible.  Without this override, a Menu would have scrollbars
+when one of its submenus is visible.
+
+*/
+
+.reportage .yuimenu.show-scrollbars,
+.reportage .yuimenubar.show-scrollbars {
+
+	overflow: visible; 
+
+}
+
+.reportage .yuimenu.hide-scrollbars .yui-menu-shadow,
+.reportage .yuimenubar.hide-scrollbars .yui-menu-shadow {
+
+    overflow: hidden;
+
+}
+
+.reportage .yuimenu.show-scrollbars .yui-menu-shadow,
+.reportage .yuimenubar.show-scrollbars .yui-menu-shadow {
+
+    overflow: auto;
+
+}
+
+
+/* MenuBar style rules */
+
+.reportage .yuimenubar {
+
+    background-color: #f6f7ee;
+    
+}
+
+
+
+/* Menu style rules */
+
+.reportage .yuimenu {
+
+    background-color: #f6f7ee;
+    border: solid 1px #c4c4be;
+    padding: 1px;
+    
+}
+
+.reportage .yui-menu-shadow {
+
+    display: none;
+
+}
+
+.reportage .yuimenu ul {
+
+    border: solid 1px #c4c4be;
+    border-width: 1px 0 0 0;
+    padding: 10px 0;
+
+}
+
+.reportage .yuimenu .yui-menu-body-scrolled {
+
+    overflow: hidden;
+
+}
+
+
+/* Group titles */
+
+.reportage .yuimenu h6,
+.reportage .yuimenubar h6 { 
+
+    font-size: 100%;
+    font-weight: normal;
+    border: solid 1px #c4c4be;
+    color: #b9b9b9;    
+
+}
+
+.reportage .yuimenubar h6 {
+
+    float: left;
+    padding: 4px 12px;
+    border-width: 0 1px 0 0;
+
+}
+
+.reportage .yuimenubar .yuimenu h6 {
+
+    float: none;
+
+}
+
+.reportage .yuimenu h6 {
+
+    border-width: 1px 0 0 0;
+    padding: 5px 10px 0 10px;
+
+}
+
+.reportage .yuimenu ul.first-of-type, 
+.reportage .yuimenu ul.hastitle,
+.reportage .yuimenu h6.first-of-type {
+
+    border-width: 0;
+
+}
+
+
+
+/* Top and bottom scroll controls */
+
+.reportage .yuimenu .topscrollbar,
+.reportage .yuimenu .bottomscrollbar {
+
+    height: 16px;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+}
+
+.reportage .yuimenu .topscrollbar {
+
+    background-image: url(../img/menu_up_arrow.png);
+
+}
+
+.reportage .yuimenu .topscrollbar_disabled {
+
+    background-image: url(../img/menu_up_arrow_disabled.png);
+
+}
+
+.reportage .yuimenu .bottomscrollbar {
+
+    background-image: url(../img/menu_down_arrow.png);
+
+}
+
+.reportage .yuimenu .bottomscrollbar_disabled {
+
+    background-image: url(../img/menu_down_arrow_disabled.png);
+
+}
+
+
+/* MenuItem and MenuBarItem styles */
+
+.reportage .yuimenuitem {
+
+    /*
+        For IE: Used to collapse superfluous white space between <li> elements
+        that is triggered by the "display" property of the <a> elements being
+        set to "block."
+    */
+
+    *border-bottom: solid 1px #f6f7ee;
+
+}
+
+.reportage .yuimenuitemlabel,
+.reportage .yuimenuitemlabel:visited,
+.reportage .yuimenubaritemlabel,
+.reportage .yuimenubaritemlabel:visited {
+
+    font-size: 85%;
+    color: #000;
+    text-decoration: none;
+
+}
+
+.reportage .yuimenuitemlabel {
+
+    padding: 2px 24px;
+    
+}
+
+.reportage .yuimenubaritemlabel {
+
+    border-width: 0 0 0 1px;
+    border-style: solid;
+    border-color: #c4c4be;
+    padding: 4px 24px;
+
+}
+
+.reportage .yuimenubar li.first-of-type .yuimenubaritemlabel {
+
+    border-width: 0;
+
+}
+
+.reportage .yuimenubaritem-hassubmenu {
+
+    background: url(../img/menubaritem_submenuindicator.png) right center no-repeat;
+
+}
+
+.reportage .yuimenuitem-hassubmenu {
+
+    background: url(../img/menuitem_submenuindicator.png) right center no-repeat;
+
+}
+
+.reportage .yuimenuitem-checked {
+
+    background: url(../img/menuitem_checkbox.png) left center no-repeat;
+
+}
+
+.reportage .yuimenuitemlabel .helptext {
+
+    margin-top: -1.1em;
+    *margin-top: -1.2em;  /* For IE*/
+    
+}
+
+
+
+/* MenuItem states */
+
+
+/* Selected MenuItem */
+
+.reportage .yuimenubaritem-selected,
+.reportage .yuimenuitem-selected {
+
+    background-color: #8c8ad0;
+
+}
+
+.reportage .yuimenubaritemlabel-selected,
+.reportage .yuimenubaritemlabel-selected:visited,
+.reportage .yuimenuitemlabel-selected,
+.reportage .yuimenuitemlabel-selected:visited {
+
+    text-decoration: underline;
+    color: #fff;
+
+}
+
+.reportage .yuimenubaritem-hassubmenu-selected {
+
+    background-image: url(../img/menubaritem_submenuindicator_selected.png);
+
+}
+
+.reportage .yuimenuitem-hassubmenu-selected {
+
+    background-image: url(../img/menuitem_submenuindicator_selected.png);
+
+}
+
+.reportage .yuimenuitem-checked-selected {
+
+    background-image: url(../img/menuitem_checkbox_selected.png);
+
+}
+
+
+/* Disabled MenuItem */
+
+.reportage .yuimenubaritemlabel-disabled,
+.reportage .yuimenubaritemlabel-disabled:visited,
+.reportage .yuimenuitemlabel-disabled,
+.reportage .yuimenuitemlabel-disabled:visited {
+
+    cursor: default;
+    color: #b9b9b9;
+
+}
+
+.reportage .yuimenubaritem-hassubmenu-disabled {
+
+    background-image: url(../img/menubaritem_submenuindicator_disabled.png);
+
+}
+
+.reportage .yuimenuitem-hassubmenu-disabled {
+
+    background-image: url(../img/menuitem_submenuindicator_disabled.png);
+
+}
+
+.reportage .yuimenuitem-checked-disabled {
+
+    background-image: url(../img/menuitem_checkbox_disabled.png);
+
+}
+
+html.reportage {/*background-color:#333333;*/font-family: verdana, helvetica, arial, sans-serif;}
+
+.reportage .nowrap {white-space:nowrap;}
+.reportage #doc3 {min-width:81.077em; *min-width:79.07em; margin:auto;background-color:#ffffff;}
+.reportage #hd {z-index:10;}
+.reportage #bd {clear:both;margin-top:15px;margin-bottom:15px;}
+.reportage #footer {color:#ffffff;text-align:left;background-color:#333333; padding:0px 10px;clear:both;}
+.reportage #footer .colRow {padding:15px 0px; margin-bottom:15px;}
+.reportage #footer div.col {width:20%; margin-right:6%;color:#cfcfcf;font-size:.85em;}
+.reportage #footer .col .title {color:#ffffff;font-size:1.3em;}
+.reportage #footer .col a.title {color:#ffffff;font-size:1.3em;text-decoration:none;}
+.reportage #footer .col .linkTitle {color:#CFCFCF;font-size:1.2em;}
+.reportage #footer .col a.reportLink {color:#ffffff;font-size:1.4em; text-decoration:none;}
+.reportage #footer .col a.reportLink:hover {font-weight:bold;}
+.reportage #footer .col a.reportLink img {position:relative; top:2px;}
+.reportage #headerBG {background-color:#304E72;height:65px;width:100%;position:absolute;top:0px;}
+.reportage .date_relevance{color:#e5e5e5;float:right;font-style:italic;padding:5px 10px;}
+
+
+.reportage div{position:relative;}
+
+.reportage .col {float:left; }
+.reportage .col.last {margin-right:0 !important;}
+.reportage .clear {clear:both;}
+
+.reportage #credit {color:#adacac;font-size:.8em;background: transparent url(../img/cog_btm.gif) no-repeat right bottom; clear:both;height:65px;}
+.reportage #credit div {position:absolute; bottom:5px; right:210px;}
+.reportage #credit a, .reportage #credit a:visited {color:#adacac;text-decoration:underline;}
+.reportage .comparison_selectors {color:#ffffff; font-size:1.1em; padding:4px 10px; text-align:right;}
+.reportage .comparison_selectors li {display:inline; padding:5px 0px 5px 10px; cursor:pointer;}
+.reportage .filter_selectors_moused {background-color:#ffffff; color:#304E72;}
+
+
+.reportage #divshade {filter: alpha(opacity:50);opacity: 0.5;  -moz-opacity:0.5;
+    background-color:#525457; position:absolute; top:0px; left:0px; width:100%;height:100%; display:none;z-index:5000;
+    clear:both;}
+
+
+
+    
+.reportage .selection_dialog { padding:5px 15px 15px;}
+.reportage .selection_dialog h1 {font-size:1.3em;color:#525252;font-weight:bold;margin:0 3px; border-bottom:3px solid;}
+.reportage .selection_dialog h2 {display:none;}
+.reportage .selection_dialog .cancel_link { float:left;clear:both;margin-top:5px }
+.reportage .selection_dialog .cancel_link_top {display:none; }
+.reportage .selection_dialog table.tag_selector {width:100%;border-collapse:separate;border-spacing:3px;}
+
+.reportage .selection_dialog .more {font-style:italic; cursor:pointer;color:#2554C7;}
+.reportage .selection_dialog .selection_col {padding:5px;vertical-align:top;}
+.reportage .selection_dialog .selection_col.label {width:114px;color:#e5e5e5; background:#2554C7 url(../img/rtArrow_20x50.jpg) no-repeat right 5px; font-size:1.8em; font-weight:bold;padding-right:25px;}
+
+.reportage .selection_dialog ul.tags_selected {margin-left:10px;}
+.reportage .selection_dialog ul.tags_selected li {padding:1px;margin-left:10px;}
+
+.reportage .selection_dialog .selection_header {padding:1px;font-size:1.0em;font-weight:bold;color:#525252;}
+
+.reportage .selection_dialog .selections {padding: 0px 10px;}
+.reportage .selection_dialog .selections.dates {padding: 0px;}
+.reportage .selection_dialog .selections.more_options {}
+.reportage .selection_dialog .selections li.more_options_link {font-size:.9em; font-style:italic; color:#525252;cursor:pointer;display:none;}
+.reportage .selection_dialog .selections li {padding:1px;}
+.reportage .selection_dialog .dates_divider { margin-top:5px;}
+.reportage .selection_dialog .selections li.inline {display:inline;}
+.reportage .selection_dialog .selections div.groups_sub_cb {font-size:.9em;width:100%;margin-top:20px;}
+.reportage .selection_dialog .selections li.selectors {font-size:.9em;width:100%; }
+.reportage .selection_dialog .selections li.selectors select {margin-left:5px;}
+.reportage .selection_dialog .selections li.addBtn {display:inline;font-size:.8em; border:1px solid #304E72;background-color:#E6EDF7;cursor:pointer;}
+.reportage .selection_dialog .tinted {background-color:#e5e5e5;}
+.reportage .selection_dialog .selection_link {text-decoration:underline;cursor:pointer;color:#2554C7;padding:3px 0px;font-weight:bold;}
+.reportage .selection_dialog .group_option img{position:relative; top:1px;cursor:pointer;margin-right:2px;}
+
+.reportage .selection_dialog .selections li.selectors table.dates {border-collapse:separate; border-spacing:2px;margin-top:2px;}
+.reportage .selection_dialog .selections li.selectors table.dates td {white-space:nowrap;}
+.reportage .selection_dialog .selections li.selectors td.date_label {}
+
+.reportage .selection_dialog .submit_wrapper {margin-top:15px;float:left;}
+.reportage .selection_dialog .selectDialog_submit_btn {position:relative; width:120px; padding:6px; background-color:#525252; /*border:3px solid;*/color:#FFFFFF;cursor:pointer;
+        font-size:1.3em;font-weight:bold; text-align:center; }
+
+.reportage #select_comp_modal_filter{display:none;position:absolute;top:100px;z-index:5001;
+    background-color:#ffffff; border:2px solid; color:#525252;text-align:left;}
+
+.reportage #select_comp_modal_filter table {min-height:205px;}
+.reportage #select_comp_modal_filter div.col {border-right:1px solid;}
+
+.reportage #select_comp_modal_filter div.col.dates {width:250px;}
+.reportage #select_comp_modal_filter div.col.learners {width:230px;}
+.reportage #select_comp_modal_filter div.col.courses {width:230px;border-right:none;}
+
+.reportage #select_comp_modal_filter .selection_dialog h1  {margin:auto;font-size:1.5em;}  
+.reportage #select_comp_modal_filter table.tag_selector td.selection_col {}
+.reportage #select_comp_modal_filter table.tag_selector td.more {}
+.reportage #select_comp_modal_filter .selection_dialog h2 {display:block;font-size:1.2em;color:#525252;font-weight:bold;margin:0 3px; border-bottom:2px solid;}
+.reportage #select_comp_modal_filter .dialog_btns {float:right;}
+.reportage #select_comp_modal_filter .selection_dialog .cancel_link { float:right;}
+.reportage #select_comp_modal_filter .selection_dialog .cancel_link_top {position:absolute;top:10px; right:15px;display:block; }
+.reportage #select_comp_modal_filter div.compOption {padding:5px; font-size:.9em;}
+.reportage #select_comp_modal_filter div.compOption span {margin-left:5px;}
+
+
+
+.reportage .util_div {float:right;clear:right;}
+.reportage a.util_div, .reportage a.util_div:hover, .reportage a.util_div:visited {color:#ffffff; font-size:1.0em;margin:10px 10px 0 0;cursor:pointer;}
+.reportage div.util_div{margin:-30px 10px 0px;border:1px solid #304E72; color:#304E72; padding:3px; font-size:1.0em;background-color:#ffffff;}
+.reportage div.util_div li{display:inline; padding:10px;}
+
+.reportage .topLinks {color:#ffffff; font-size:1.1em; padding:2px 10px 0; }
+.reportage .topLinks img {}
+.reportage .topLinks a, .reportage .report_title a:visited {text-decoration:underline;cursor:pointer;color:#ffffff;padding:3px;}
+.reportage .topLinks a:hover{text-decoration:none;color:#304E72;background-color:#ffffff;}
+
+.reportage .report_filters{color:#2554C7; font-size:1.1em; font-weight:bold; padding:5px 10px; }
+.reportage .report_filters li{display:inline; padding:3px 5px; cursor:pointer; text-decoration:underline;}
+.reportage .report_filters li.report_filters_moused {background-color:#2554C7; color:#ffffff;}
+
+.reportage .util_wrapper {}
+
+
+
+.reportage .data_legend{padding: 8px 0px;max-width:863px;font-size:1.1em;}
+.reportage .data_legend li{display:inline; padding:2px 5px 2px 5px;}
+.reportage li.data_legend_moused {background-color:#304E72; color:#ffffff;}
+.reportage .compare_data{color:#666666;background-color:#e5e5e5; }
+.reportage .select_data {font-weight:bold;font-size:1.2em;color:#2554C7;}
+.reportage .isLink {cursor:pointer;}
+
+.reportage .nodisplay {display:none;}
+.reportage .hidden {visibility:hidden;}
+
+.reportage .criteria_wrapper {max-width:850px;z-index:100}
+/*table.criteria {width:100%; border-collapse:separate;border-spacing:25px 0; margin-left:-10px;}*/
+.reportage ul.criteria {width:1000px}
+.reportage ul.criteria li{/*display:inline-table;*/}
+.reportage ul.criteria li.criteria {display:inline-table; width:275px; margin-left:10px;color:#525252;vertical-align:top;z-index:1000; *float:left;}
+
+.reportage ul.criteria li.criteria .inner_wrapper {background-color:#d5d5d5; color:#525252;z-index:1000}
+.reportage ul.criteria li.criteria table {width:100%;/*height:100%;*/height:70px;max-width:275px;}
+
+.reportage ul.criteria td.label {background-color:#525252;color:#d5d5d5;padding:2px 5px; text-align:center;vertical-align:top;width:70px;}
+.reportage ul.criteria td.criteria {padding-left:10px;}
+.reportage ul.criteria td.criteria div.criteria {padding:2px 5px;max-height:70px;overflow:hidden;}
+.reportage ul.criteria td.criteria div.no_max_height {max-height:none !important;}
+
+.reportage ul.criteria div.helptext { font-size:1.0em; text-decoration:none; line-height:1.5em;font-style:italic; margin-left:10px;}
+.reportage ul.criteria div.default {font-weight:bold; font-size:1.6em; text-decoration:none; line-height:1.2em; }
+.reportage ul.criteria div.name {font-weight:bold; font-size:1.6em; text-decoration:none; line-height:1.2em; }
+.reportage ul.criteria div.title {white-space:normal; font-weight:bold; font-size:1.2em; text-decoration:none; line-height:1.2em; }
+.reportage ul.criteria div.tag {font-weight:bold; font-size:1.2em; text-decoration:none; }
+.reportage ul.criteria div.link { text-decoration:underline; font-size:1.1em;cursor:pointer;}
+.reportage ul.criteria div.more { text-decoration:underline; font-size:.9em; cursor:pointer;color:#2554C7; }
+
+
+.reportage ul.criteria div.selector {display:none; position:absolute;background-color:#d5d5d5;border:2px solid;z-index:1000}
+
+
+
+
+.reportage .filter_link_wrapper {padding:0 10px;}
+.reportage .filter_link_col {float:left; margin-right:2%; height:55px; width:30%;
+    background-color:#e5e5e5;padding:8px;color:#2554C7;margin-bottom:3px;}
+.reportage .filter_link_col.last {margin-right:0px;}
+.reportage .filter_link_moused  {background-color:#2554C7;padding:8px;color:#ffffff;}
+.reportage .filter_link_moused span.label, .reportage .filter_link_moused span.title {color:#304E72; }
+.reportage .filter_link_moused span.link {color:#E6EDF7;}
+.reportage .filter_link .label { font-size:.9em;  }
+.reportage .filter_link .title {font-weight:bold; font-size:1.9em; text-decoration:none; }
+.reportage .filter_link .topTxt { font-size:.85em; line-height:.9em; }
+.reportage .filter_link .subTxt {font-weight:bold; font-size:1.0em; line-height:1.1em;}
+.reportage .filter_link .link { text-decoration:underline; font-size:1.1em }
+.reportage .filter_link a, .reportage  .filter_link a:visited {font-weight:bold; font-size:1.4em; color:#2554C7;text-decoration:none; }
+.reportage .filter_link a:hover {background-color:#2554C7;color:#ffffff;}
+.reportage .filter_link_filler {height:35px;}
+.reportage .filter_header {color:#e5e5e5; background:#2554C7 url(../img/rtArrow_20x50.jpg) no-repeat right; font-size:1.8em; font-weight:bold;padding-right:25px;}
+.reportage .filter_header img {float:right;}
+
+.reportage .space65 {width:65px;}
+.reportage .space45 {width:45px;}
+
+.reportage #bd {margin:auto 10px; padding-bottom:10px;}
+
+
+
+/***  SCORMENGINE Header ***/
+.reportage #top_border {text-indent: -9999px; background-color:#DAE1E9; height:4px;width:100%;font-size:4px;}
+.reportage #header_wrapper {background: transparent url(../img/cog_top.jpg) no-repeat scroll 600px top;height: 95px;width:100%;}
+.reportage #logo {	background: transparent url(../img/logo_inv.jpg) no-repeat scroll left top;
+	float: right;height: 80px;text-indent: -9999px;width: 200px;position: absolute;right: 15px;top:12px;}
+.reportage #title_logo{background: #e5e5e5 url(../img/reportage.jpg) no-repeat scroll left top;
+	float: left;height: 80px;text-indent: -9999px;width: 500px;position: absolute;left: 15px;top:5px;}
+
+/***  Main Filterbad/Menu ***/
+.reportage .filterbar, .reportage .filterMenu{color:#FFFFFF;font-size:1.3em;height:40px; position:relative;}
+.reportage .filterbar ul {padding-top:10px;}
+.reportage .filterMenu ul {padding-top:5px;}
+.reportage .filterbar li {display:inline; padding:0px 20px 0px 10px;}
+.reportage .filterbar_date_chooser {position:absolute; top:10px;right:10px; cursor:pointer;}
+
+/***  Utilities ***/
+
+
+
+
+
+
+
+.reportage .main_section_header_txt {background:transparent; font-size:2.0em; font-weight:bold;padding:0px 0px; text-align:left;}
+.reportage .title_emphasis {font-weight:bold; font-size:1.3em; color:#000000;/*white-space:nowrap;*/}
+
+.reportage .bubble_data_wrapper {padding:1px 10px 10px 10px;}
+.reportage .always_show {display:block;}
+.reportage .section_collapse div.bubble_data_wrapper {}
+.reportage .sub_detail_arrows {margin-left:5px; width:16px; height:16px; overflow:hidden; position:absolute; right:10px; top:10px; cursor:pointer;}
+.reportage .img_detail_arrows {background-image:url(../img/up_down_arrows_sm.gif); position:absolute; width:32px; height:16px; right:-16px;}
+.reportage .img_detail_arrows_open {right:0px;}
+.reportage .section_collapse img.img_detail_arrows {right:-16px;}
+
+.reportage a.embedLinkExpander{cursor:pointer; display:inline-block; overflow:hidden; position:relative; width:16px; height:16px; top:2px}
+.reportage img.embedLinkArrow{position:relative}
+.reportage div.embedLinkDiv_container{font-size:13px; position:relative; height:32px; padding:8px; padding-bottom:4px;}
+.reportage div.embedLinkDiv_collapsed, .reportage  div.embedLinkDiv_expanded{float:right; background-color:#E5E5E5; border:1px solid #BBBBBB; padding:4px; width:20px; height: 20px;}
+.reportage div.embedLinkDiv_expanded{width:420px;}
+.reportage input.embedLink{width:300px; position:relative}
+.reportage .embedLinkDiv_container.reportage {margin: auto 10px;}
+
+.reportage .tooltip{
+	position:absolute;
+	font-size: 11px;
+	color: #555555;
+	border:1px solid #333333;
+	background:#eeeeee;
+	padding:6px;
+	display:none;
+	width: 280px;
+	z-index: 1001;
+        text-align: left;
+}
+.reportage .tooltip_icon {cursor:pointer;}
+
+.reportage .tooltipcloser, .reportage  .tooltipcloser:hover {
+	float:right;
+	font-weight:bold;
+	padding-top:20px;
+	position:relative;
+}
+
+.reportage .tooltipcloser:hover {
+	text-decoration: underline;
+	cursor:pointer;
+}
+
+.reportage .right {float:right;}
+
+.reportage .bg_e6edf7{background-color:#e6edf7;}
+
+
+.reportage .bs1_e6edf7{background:#E6EDF7 url(../img/corner_E6EDF7_tl.gif) no-repeat scroll left top;}
+.reportage .bs2_e6edf7{background:transparent url(../img/corner_E6EDF7_bl.gif) no-repeat scroll left bottom;}
+.reportage .bs3_e6edf7{background:transparent url(../img/corner_E6EDF7_br.gif) no-repeat scroll right bottom;}
+.reportage .bs4_e6edf7{background:transparent url(../img/corner_E6EDF7_tr.gif) no-repeat scroll right top;}
+
+.reportage .bs1_e5e5e5{background:#E5E5E5 url(../img/corn_e5e5e5_tl.gif) no-repeat scroll left top;}
+.reportage .bs2_e5e5e5{background:transparent url(../img/corn_e5e5e5_bl.gif) no-repeat scroll left bottom;}
+.reportage .bs3_e5e5e5{background:transparent url(../img/corn_e5e5e5_br.gif) no-repeat scroll right bottom;}
+.reportage .bs4_e5e5e5{background:transparent url(../img/corn_e5e5e5_tr.gif) no-repeat scroll right top;}
+
+
+.reportage .bt_BBBBBB {background: url(../img/sq1_BBBBBB.gif) 0 0 repeat-x;}
+.reportage .bb_BBBBBB {background: url(../img/sq1_BBBBBB.gif) 0 100% repeat-x}
+.reportage .bl_BBBBBB {background: url(../img/sq1_BBBBBB.gif) 0 0 repeat-y}
+.reportage .br_BBBBBB {background: url(../img/sq1_BBBBBB.gif) 100% 0 repeat-y}
+.reportage .bbl_BBBBBB {background: url(../img/cb_BBBBBB_bl.gif) 0 100% no-repeat;}
+.reportage .bbr_BBBBBB {background: url(../img/cb_BBBBBB_br.gif) 100% 100% no-repeat;}
+.reportage .btl_BBBBBB {background: url(../img/cb_BBBBBB_tl.gif) 0 0 no-repeat;}
+.reportage .btr_BBBBBB {background: url(../img/cb_BBBBBB_tr.gif) 100% 0 no-repeat; } 
+
+.reportage .withLayout {zoom:1 !important;}
+.reportage .summary_widget { font-size: 14px; }
+.reportage .summary_table{width:100%;zoom:1;}
+.reportage .summary_table td {vertical-align:top; padding-bottom: 14px;}
+.reportage .summary_box{padding:5px 5px 15px; cursor:pointer;border:1px dashed #ffffff;zoom:1;}
+.reportage .summary_box_moused{border-color:#666666;}
+.reportage .summary_box_moused_off{border:1px solid #ffffff !important;}
+.reportage .summary_box table {}
+.reportage .summary_box td {padding-right:5px; vertical-align:baseline; }
+.reportage .summary_box td.col_right {vertical-align:top;}
+.reportage .summary_title{ font-size:.9em;color:#2554C7; text-align:left;}
+.reportage td.summary_value {/*width:65px;*/}
+.reportage td.stacked_summary_value { padding-bottom: 4px;}
+.reportage .summ_val_smaller{vertical-align:top;font-size:.9em;}
+.reportage div.summary_value, .reportage  span.summary_value{font-size:1.8em; line-height:1em;}
+.reportage div.summary_value_date{font-size:1.2em; }
+.reportage .summary_comp_data{font-size:0.7em; color:#666666;background-color:#e5e5e5;float:left;clear:both;padding:1px 2px;}
+.reportage .summary_comp_data.notint{background-color:transparent;}
+.reportage .summary_variance{margin-left:3px;}
+.reportage .xsm_summary {font-size:1.2em;}
+.reportage .sm_summary {font-size:1.5em;}
+.reportage .med_summary {font-size:1.7em;}
+.reportage .big_summary {font-size:1.9em;}
+
+.reportage .report_summary_h320{height:320px;}
+.reportage .report_summary_h350{height:352px;}
+.reportage .report_summary_h175{height:175px;}
+.reportage .report_summary_h230{height:235px;}
+
+.reportage .underline {text-decoration:underline;}
+.reportage .bold {font-weight:bold;}
+.reportage .green, .reportage  .passed, .reportage  .complete, .reportage  .correct {color:#41A317;}
+.reportage .red, .reportage  .failed, .reportage  .incorrect {color:#F62817;}
+.reportage .incomplete {color:#808080;}
+.reportage .unknown {color:#C0C0C0;}
+.reportage .satifactionunknown, .reportage  .completionunknown {color:#666666; font-size:1.4em !important;}
+.reportage .gray_italics {color:#666666;font-style:italic;}
+
+.reportage .chart_wrapper {padding-left:5px; }
+.reportage .chart_title {padding:8px 12px; font-size:1.5em; font-weight:bold;}
+.reportage .chart_link {position:absolute; font-size:.7em; right:12px; top:12px;text-decoration:underline;}
+.reportage .summary_chart{display:none; padding-top:10px;}
+
+.reportage .margTop5 {margin-top:5px;}
+.reportage .margTop10 {margin-top:10px;}
+.reportage .padTop10 {padding-top:10px;}
+.reportage .pad10  {padding:10px;}
+.reportage .pad5  {padding:5px;}
+
+.reportage .details_widget {width: 440px; font-size:16px}
+.reportage .details_widget_fixed_size {height:260px;overflow:hidden;display:block;}
+.reportage .details_header {padding:5px 10px 5px 0px;cursor:pointer; text-align:left;}
+.reportage .details_header li {display:inline; padding:5px 0px; }
+.reportage .details_header li.first {padding-left:10px; }
+.reportage .details_header img {vertical-align:top; }
+.reportage .details_title {font-size:1.2em;font-weight:bold; padding:5px 0px;}
+.reportage .details_font{font-size:1.4em;}
+
+.reportage .noPointer {cursor:default !important;}
+
+.reportage .details_utils {width:100%; background-color:#e5e5e5;border:1px solid #BBBBBB; text-align:left;position:relative;}
+.reportage .details_utils td, .reportage .details_utils li {font-size:.7em;padding:5px; }
+.reportage .details_utils ul {padding:3px; }
+.reportage .details_utils li {margin-right:15px; display:inline;}
+.reportage .details_utils td.right {text-align:right;}
+.reportage .details_utils img {vertical-align:text-top;}
+.reportage .details_utils a, .reportage .details_utils a:visited {color:#000000; text-decoration:none;vertical-align:text-top;}
+.reportage .view_all_moused {text-decoration:underline !important;}
+.reportage .text_default {color:#cdcdcd; font-weight:bold;}
+
+.reportage .exportLink {float:right;font-size:.7em;cursor:pointer; margin:6px 5px 0 0;color:#2554C7;}
+.reportage .exportLink img {margin-right:3px;position:relative;top:-4px;}
+.reportage #exportTarget {width:1px;height:1px; position:absolute; right:-1000px;}
+
+.reportage .details_table_wrapper {position:relative; }
+.reportage .details_table{width:100%;text-align:right;}
+.reportage .view_all .details_table{margin-top:2px;}
+.reportage .details_table th{text-align:inherit;}
+
+.reportage .details_table th, .reportage .details_table td {
+    -moz-background-clip:border;
+    -moz-background-inline-policy:continuous;
+    -moz-background-origin:padding;
+    padding:0.5em 0.5em 0.3em;
+}
+.reportage .details_table td {border-top:1px solid #BBBBBB;vertical-align:top;}
+.reportage .details_tbl_head{
+    font-size:.7em;
+    font-weight:bold;
+    display:block;
+    margin:0;
+    position:relative;
+    min-height:1.2em;
+}
+.reportage .details_tbl_data{
+    font-size:.7em;
+    display:block;
+    margin:0;
+    position:relative;
+    min-height:1.2em;
+}
+.reportage .details_tbl_data div.interaction {font-size:.9em;}
+.reportage .details_tbl_data div.interaction.description {font-size:.85em; color:#000000; font-weight:normal;}
+.reportage .details_tbl_data.viewAll div.interaction {font-size:1.2em;}
+.reportage .details_tbl_data.viewAll div.interaction.description {font-size:1.0em;}
+
+.reportage .details_tbl_chart_data_hidden{display:none;}
+.reportage .tbl_chart_space {width:350px; overflow:visible; }
+.reportage ul.details_agg_header li {display:inline; padding:5px 60px 5px 10px; vertical-align:top;}
+.reportage .details_tbl_chart {display:none; overflow:visible;}
+.reportage .details_tbl_chart_visible {display:block; overflow:visible;}
+.reportage .chart_list{margin-top:35px; font-size:.9em;}
+.reportage .detail_row_selectable {cursor:pointer;}
+
+.reportage .detail_row_selectable_moused {background-color:#e5e5e5;}
+.reportage .detail_row_selectable_selected {background-color:#e5e5e5 !important;}
+.reportage .detail_link{color:#2554C7;font-size:1.1em;font-weight:bold;}
+.reportage .td_score{max-width:50px;}
+.reportage .td_head_left, .reportage th.td_head_left{text-align:left; width:180px;}
+.reportage .text_wrapper {
+    min-height:1.2em;
+    
+    margin:0;
+    width:100%;
+    padding:0;
+    /*position:absolute;
+    top:0;
+    white-space:nowrap;
+    left:0;
+    overflow:visible;
+    overflow:hidden;*/
+}
+.reportage .text_wrapper img {float:right;}
+
+
+
+.reportage .details_navigation {background:transparent; font-size:.8em; padding:10px; text-align:left;color:#304E72;cursor:pointer;}
+.reportage .details_navigation_abs_pos {background:transparent; font-size:.7em; }
+.reportage .details_navigation_abs_pos li {display:inline;}
+.reportage .details_navigation_abs_pos img {vertical-align:text-top;}
+.reportage .details_navigation_abs_pos a, .reportage .details_navigation_abs_pos a:visited {color:#000000; text-decoration:none;vertical-align:text-top;}
+.reportage .sortable {text-decoration:underline; cursor:pointer;}
+
+.reportage .commentTable td {border:none;font-size:1.0em;padding:0px;}
+.reportage .commentTable td.comment_learner {font-weight:bold; font-size:1.1em; color:#2554C7; cursor:pointer;}
+.reportage .commentTable td.comment_txt {color:#000000; padding:5px 10px;font-size:1.1em;font-weight:normal;}
+.reportage .commentTable td.comment_details{ padding-left:10px}
+.reportage .commentTable td.comment_details li{display:inline; padding-right:15px;color:#000000; font-size:1.0em; font-weight:normal;}
+.reportage .commentTable .comment_label {font-size:.8em; color:#666666;}
+
+
+.reportage td.launch{color:#2554C7 !important;}
+
+.reportage #filterMenu {padding-left:5px;}
+
+.reportage .detail_section_header_txt{background:transparent; font-size:1.3em; font-weight:bold;padding:3px 5px;}
+.reportage .detail_section_header_txt .yuimenubaritem-hassubmenu {background-image: url(../img/menubaritem_submenuindicator.png);}
+.reportage .detail_section_header_txt .yuimenubaritem-hassubmenu-selected {background-image: url(../img/menubaritem_submenuindicator.png);}
+.reportage .detail_section_header_txt .yuimenuitemlabel, .reportage  .detail_section_header_txt .yuimenuitemlabel:visited {  color:#304E72;font-size:1.2em;text-decoration:none;}
+.reportage .detail_section_header_txt .yuimenubaritemlabel, .reportage  .detail_section_header_txt .yuimenubaritemlabel:visited {
+    color:#304E72;
+}
+.reportage .detail_section_header_txt .yuimenubaritem-selected{background-color:#e5e5e5;}
+.reportage .detail_section_header_txt .yuimenuitem-selected {background-color: #304E72;}
+.reportage .detail_section_header_txt .yuimenubaritemlabel-selected,  
+.reportage .detail_section_header_txt .yuimenubaritemlabel-selected:visited{color:#304E72;border:1px solid #C4C4BE;}
+.reportage .detail_section_header_txt .yuimenuitemlabel-selected,  
+.reportage .detail_section_header_txt .yuimenuitemlabel-selected:visited {text-decoration: none;color: #ffffff;}
+.reportage .detail_section_header_txt .yuimenu {
+background-color:#e5e5e5;
+border:1px solid #C4C4BE;
+border-top:none;
+padding:1px;}
+
+.reportage .nowrap {white-space:nowrap;}
+
+
+
+.reportage .jScrollPaneContainer {
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.reportage .jScrollPaneTrack {
+	position: absolute;
+	cursor: pointer;
+	right: 0;
+	top: 0;
+	height: 100%;
+	background: #aaa;
+}
+.reportage .jScrollPaneDrag {
+	position: absolute;
+	background: #666;
+	cursor: pointer;
+	overflow: hidden;
+}
+.reportage .jScrollPaneDragTop {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+.reportage .jScrollPaneDragBottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+}
+.reportage a.jScrollArrowUp {
+	display: block;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	text-indent: -2000px;
+	overflow: hidden;
+	/*background-color: #666;*/
+	height: 9px;
+}
+.reportage a.jScrollArrowUp:hover {
+	/*background-color: #f60;*/
+}
+
+.reportage a.jScrollArrowDown {
+	display: block;
+	position: absolute;
+	z-index: 1;
+	bottom: 0;
+	right: 0;
+	text-indent: -2000px;
+	overflow: hidden;
+	/*background-color: #666;*/
+	height: 9px;
+}
+.reportage a.jScrollArrowDown:hover {
+	/*background-color: #f60;*/
+}
+.reportage a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
+	/*background-color: #f00;*/
+}

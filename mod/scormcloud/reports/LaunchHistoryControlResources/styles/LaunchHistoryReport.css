@@ -1,0 +1,202 @@
+/* Launch History Report */        
+td.launch_listPrefix {
+    color:#0077CC;
+    font-size: 120%;
+    font-weight: bold;
+    padding-bottom: 0px;
+    width:30px
+}
+td.launch_index {
+    color:#0077CC;
+    font-size: 120%;
+    font-weight: bold;
+    padding-bottom: 0px;
+    width:50px
+}
+td.launch_time {
+    color:#0077CC;
+    font-size: 120%;
+    font-weight: bold;
+    padding-bottom: 00px;
+    width:250px
+}
+td.launch_duration {
+    color:#0077CC;
+    font-size: 120%;
+    font-weight: bold;
+    padding-bottom: 0px;
+}
+div.div_receiver {
+}
+div.launch_activity_list {
+    margin-left: 20px;
+}
+div.launch_report {
+    padding-top: 20px;
+    padding-bottom:20px;
+}
+div.launch_wrap_launch_report {
+    padding-top: 20px;
+    padding-bottom:20px;
+}
+div.launch_activity_block {
+    margin-left: 30px;
+    padding-bottom:3px;
+    padding-top:2px;
+    position:relative;
+}
+div.launch_todo {
+	background-color:#EEEEEE;
+}
+span.launch_activity_title {
+	font-family: courier; 
+	
+}
+span.launch_activity_status {
+	color: green; 
+}
+span.launch_objective_id {
+	color: green; 
+}
+div.launch_learner_response {
+    margin-left: 30px;
+}
+span.launch_int_question {
+	font-style: italic; 
+}
+span.launch_int_response {
+	color: #CC00CC;  
+}
+span.launch_int_response_correct {
+	color:green; 
+}
+span.launch_int_response_incorrect {
+	color:red; 
+}
+span.launch_string_properties {
+	color: green; 
+}
+span.launch_int_step {
+	color: maroon; 
+}
+span.launch_int_correct_pattern {
+	color:maroon; 
+}
+span.launch_unclean_termination {
+	 color:black;
+}
+span.launch_int_setvalue {
+	font-style: italic; 
+}	
+div.launch_timestamp {
+	width: 50px;
+	position: absolute;
+	color: #666666;
+}	
+div.launch_report_list_entry 
+{
+	/*height:21px;*/
+	position: relative;
+}	
+div.launch_report_list_entry_text {
+	position: absolute;
+	left:50px;
+	right:0px;
+	border-bottom:solid 1px #BBBBBB;
+	
+}
+div.launch_report_list_entry_text_invisible {
+	position: relative;
+	padding-left:50px;
+	visibility:hidden;
+	border-bottom:solid 1px #BBBBBB;
+	
+}	
+div.launch_report_sequencing_entry {
+}	
+div.launch_hide_show_sequencing {
+	color:#0077CC;
+	font-size:90%;
+	left:-30px;
+	padding-bottom:5px;
+	position:relative;
+	cursor:pointer;
+}	
+abbr.launch_abbr {
+	color: #595998; 
+	cursor: pointer; 
+	border-bottom: 1px aqua dotted; 
+}	
+div.launch_glossary_popup {
+	cursor: pointer;
+	width: 240px;
+	padding: 4px 8px;
+	border: 2px ridge maroon;
+	background-color: #ffffcc;
+	z-index: 10;
+	color: black;
+}	
+.header_title
+{
+	font-weight:bold;
+}
+
+.hist_instance_details
+{
+	position:relative;
+	left:0px;
+	/*width:480px;*/
+	padding-bottom: 30px;
+}
+.launch_history_score_fields
+{
+	background-color: #EEEEEE;
+	color:#0077CC;
+	border:solid 1px #EEEEEE;
+}
+div.hide_show_control
+{
+	background-color:#CFD5DA;
+	position:relative;
+}
+.launch_hist_instance_info
+{
+	width:auto;
+}
+.launch_hist_title_width
+{
+	width:auto;
+}
+.act_list_prefix
+{
+	font-weight:bold;
+	
+	position:absolute;
+	left:-15px;
+}
+
+.instance_info_reg_fields_title, .score_fields_title
+{
+	color: #555555;
+	background-color: #CCCCCC;
+	padding: 4px;
+	font-size: 80%;
+	font-weight: bold;
+}
+
+.info_title {
+    color:#0077CC;
+    font-size: 120%;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.info_label {
+	color:Gray;
+	font-size:80%;
+	padding-right:8px;
+}
+
+.score_fields {
+	padding-left:20px;
+}

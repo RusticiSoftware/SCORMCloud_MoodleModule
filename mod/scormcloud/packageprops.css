@@ -1,0 +1,23 @@
+body {
+background: #fff url(graphics/bg-body.gif) repeat-x;
+font:76%/160% "Trebuchet MS",Verdana,Arial,Helvetica,sans-serif;
+}
+p {
+text-align:center;
+} 
+a:link {
+color:#d42945;
+text-decoration:none;
+border-bottom:1px dotted #ffbac8;
+} 
+a:visited {
+color:#d42945;
+border-bottom:none;
+text-decoration:none;
+} 
+a:hover,
+a:focus {
+color:#f03b58;
+border-bottom:1px solid #f03b58;
+text-decoration:none;
+}

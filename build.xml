@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- This is an ANT build script. To run it, install ANT, put the ANT dir in your path, and then from this directory run "ant all"-->
+<project name="moodle" default="all" basedir=".">
+  <description>
+    This build file prepares versions of the moodle mod for SCORM Cloud/Engine.
+  </description>
+
+   <property name="temp.dir" value="../temp" />
+   <property name="format.dir" value="../format" />
+   <property name="mod.dir" value="../mod" />
+   <property name="mod.version" value="1.9.10282010" />
+  
+  <target name="clean">
+    <delete failonerror="false" dir="${temp.dir}" />
+  </target>
+  
+  <target name="init">
+    <mkdir dir="${temp.dir}" />
+  </target>
+  
+  <target name="all" depends="complete" />
+  
+  <target name="complete" depends="clean, init">
+	<mkdir dir="${temp.dir}/format" />
+    <copy todir="${temp.dir}/format">
+      <fileset dir="${format.dir}">
+        <exclude name="*.log" />
+        <exclude name="**/?svn/" />
+      </fileset>
+    </copy>
+	<mkdir dir="${temp.dir}/mod" />
+	<copy todir="${temp.dir}/mod">
+      <fileset dir="${mod.dir}">
+        <exclude name="*.log" />
+        <exclude name="**/?svn/" />
+      </fileset>
+    </copy>
+	<zip destfile="../moodle-mod-${mod.version}.zip" basedir="${temp.dir}" />
+  </target>
+</project>
