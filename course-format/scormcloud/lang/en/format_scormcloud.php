@@ -15,21 +15,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * Defines the version of scormcloud
+ * Strings for component 'format_scorm', language 'en', branch 'MOODLE_20_STABLE'
  *
- * This code fragment is called by moodle_needs_upgrading() and
- * /admin/index.php
- *
- * @package   mod_scormcloud
- * @copyright 2010 Your Name
+ * @package   format_scorm
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-//$module->version  = 0;           // If version == 0 then module will not be installed
-$module->version  = 2011081700;  // The current module version (Date: YYYYMMDDXX)
-$module->requires = 2010031900;  // Requires this Moodle version
-$module->cron     = 0;           // Period for cron to check this module (secs)
+$string['formatscormcloud']='Rustici SCORM Cloud Engine';
+$string['namescormcloud']='section';
+$string['sectionname'] = 'SCORM Cloud';
+$string['pluginname'] = 'SCORM Cloud format';

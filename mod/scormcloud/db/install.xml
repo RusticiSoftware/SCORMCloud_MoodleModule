@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/scormcloud/db" VERSION="20090601" COMMENT="XMLDB file for Moodle mod/scormcloud"
+<XMLDB PATH="mod/scormcloud/db" VERSION="20101203" COMMENT="XMLDB file for Moodle mod/scormcloud"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >

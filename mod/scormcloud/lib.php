@@ -1,291 +1,224 @@
-<?php  // $Id: lib.php,v 1.8 2007/12/12 00:09:46 stronk7 Exp $
-/**
- * Library of functions and constants for module rusticiscormengine
- * This file should have two well differenced parts:
- *   - All the core Moodle functions, neeeded to allow
- *     the module to work integrated in Moodle.
- *   - All the rusticiscormengine specific functions, needed
- *     to implement all the module logic. Please, note
- *     that, if the module become complex and this lib
- *     grows a lot, it's HIGHLY recommended to move all
- *     these module specific functions to a new php file,
- *     called "locallib.php" (see forum, quiz...). This will
- *     help to save some memory when Moodle is performing
- *     actions across all modules.
- */
+<?php
 
-/// (replace rusticiscormengine with the name of your module and delete this line)
-
-//define("RUSTICI_PATH_TO_LOGS","logs/moodlenet.log");  
-
-require_once($CFG->dirroot.'/config.php');
-require_once($CFG->dirroot.'/lib/accesslib.php');
-require_once('SCORMAPI/ScormEngineService.php');
-require_once('SCORMAPI/ServiceRequest.php');
-require_once('SCORMAPI/CourseData.php');
-
-/**
- * Get User Info for GetLearnerInfo implementation
+/*
+ *   Copyright 2011 Rustici Software.
  *
- * @param string $uid UserID for MoodleUser
- * @return object user_item
- */
-function scormcloud_get_user_data($uid) {
-	global $CFG;
-
-	if(scormcloud_write_log("UserAPI - UID=$uid")) {
-    	//write to log...
-    }
-
-    return get_record('user','id',$uid,'','','','','*');
-}
-
-function scormcloud_get_course_fullname($courseid)
-{
-	if ( $course = get_record("course", "id", "$courseid")) {
-		return $course->fullname;
-	}else{
-		scormcloud_write_log('ERROR : get_record("course", "id", "'.$courseid.'")');
-
-	}
-}
-
-function scormcloud_grade_item_reset($regid)
-{
-	//echo 'resetting '.$regid;
-	if ($reg = get_record("scormcloud_registrations", "regid", "$regid")) {
-		//echo 'found reg '.$reg->scormcloudid;
-		if($scormcloud = get_record("scormcloud", "id", "$reg->scormcloudid")){
-			$courseid = $scormcloud->course;
-			//echo '$courseid'.$courseid;
-			if(scormcloud_grade_item_update($reg->userid,$courseid,'reset'))
-			{
-				echo 'reset complete';
-			}
-		}
-	}else{
-		scormcloud_write_log('ERROR : get_record("scormcloud_registrations", "regid", "'.$regid.'")');
-
-	}
-}
-/**
- * Update/create grade item for user/ course
+ *   This file is part of the SCORM Cloud Module for Moodle.
+ *   https://github.com/RusticiSoftware/SCORMCloud_MoodleModule
+ *   http://scorm.com/moodle/
  *
- * @param string uid 
- * @param string pid 
- * @param string rawscore; 'reset' means reset grades in gradebook
- * @return object grade_item
+ *   The SCORM Cloud Module is free software: you can redistribute it and/or
+ *   modify it under the terms of the GNU General Public License as published
+ *   by the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   The SCORM Cloud Module is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with the SCORM Cloud Module.  If not, see <http://www.gnu.org/licenses/>.
  */
-function scormcloud_grade_item_update($uid, $pid, $rawscore) {
-    global $CFG;
-    
-    
-    if (!function_exists('grade_update')) { //workaround for buggy PHP versions
-        require_once($CFG->libdir.'/gradelib.php');
-    }
-    
-    //if($rawscore<>'reset')
-    //{
-		//Set RawScore to proper format
-	//	$rawscore = floatval($rawscore)*100;
-    //}
-    
-    if(scormcloud_write_log("GradeAPI - UID=$uid - PID=$pid - RAWSCORE=$rawscore")) {
-    	//write to log...
-    }
-    
-	if($scormcloud = get_record("scormcloud", "id", "$pid")){
-		$courseid = $scormcloud->course;
-
-	    //Get the Moodle Course Name
-	    $coursetitle = $scormcloud->name;
-    
-	    //$sql = "SELECT shortname FROM mdl_course WHERE id = $courseid";
-
-	    //if ($titles = get_records_sql($sql)) {
-	    //    foreach ($titles as $title) {
-	    //        $coursetitle = $title->shortname;
-	    //    }
-	    //}
-	
-		if($rawscore=='reset')
-		{
-			$grades = 'reset';
-		}else{
-
-		//$grades = array();
-		//$grades[$uid] = new object();
-		//		$grades[$uid]->id         = $uid;
-		//		$grades[$uid]->userid     = $uid;
-		//		$grades[$uid]->rawgrade = $rawscore;
-		$grades = array('userid'=>$uid, 'rawgrade'=>$rawscore);
-		
-	    $params = array('itemname'=>$coursetitle, 'idnumber'=>$scormcloud->id);
 
 
-	        $params['gradetype'] = GRADE_TYPE_VALUE;
-	        $params['grademax']  = 100;
-	        $params['grademin']  = 0;
-    
-	    }
+/**
+ * Library of interface functions and constants for module scormcloud
+ *
+ * All the core Moodle functions, neeeded to allow the module to work
+ * integrated in Moodle should be placed here.
+ * All the scormcloud specific functions, needed to implement all the module
+ * logic, should go to locallib.php. This will help to save some memory when
+ * Moodle is performing actions across all modules.
+ *
+ * @package   mod_scormcloud
+ * @copyright 2010 Your Name
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
-	    if ($grades  === 'reset') {
-	        $params['reset'] = true;
-	        $grades = NULL;
-	    }
-    
-	    if(scormcloud_write_log("GradeAPI - UID=$uid - PID=$pid - COURSE=$courseid - RAWSCORE=$rawscore - CourseTitle=$coursetitle")) {
-	    	//write to log...
-	    }
+defined('MOODLE_INTERNAL') || die();
 
-	    return grade_update('mod/scormcloud', $courseid, 'mod', 'scormcloud', $pid, 0, $grades, $params);
-	}else{
-		return false;
-	}
-}
+/** example constant */
+//define('NEWMODULE_ULTIMATE_ANSWER', 42);
 
+/**
+ * If you for some reason need to use global variables instead of constants, do not forget to make them
+ * global as this file can be included inside a function scope. However, using the global variables
+ * at the module level is not a recommended.
+ */
+//global $NEWMODULE_GLOBAL_VARIABLE;
+//$NEWMODULE_QUESTION_OF = array('Life', 'Universe', 'Everything');
+
+/**
+ * Given an object containing all the necessary data,
+ * (defined by the form in mod_form.php) this function
+ * will create a new instance and return the id number
+ * of the new instance.
+ *
+ * @param object $scormcloud An object from the form in mod_form.php
+ * @return int The id of the newly inserted scormcloud record
+ */
 function scormcloud_add_instance($scormcloud) {
-/// Given an object containing all the necessary data,
-/// (defined by the form in mod.html) this function
-/// will create a new instance and return the id number
-/// of the new instance.
-global $CFG;
+    global $DB;
 
-//if(scormcloud_write_log("scormcloud_add_instance")) {
-    	//write to log...
-  // }
-    //global $USER;
-    
-    //$scormcloud->name = "course anme";
+    $scormcloud->timecreated = time();
+
+    # You may have to add extra stuff in here #
+
+    return $DB->insert_record('scormcloud', $scormcloud);
+}
+
+/**
+ * Given an object containing all the necessary data,
+ * (defined by the form in mod_form.php) this function
+ * will update an existing instance with new data.
+ *
+ * @param object $scormcloud An object from the form in mod_form.php
+ * @return boolean Success/Fail
+ */
+function scormcloud_update_instance($scormcloud) {
+    global $DB;
 
     $scormcloud->timemodified = time();
-    if($id = insert_record("scormcloud", $scormcloud)){
-		
-	}
-	return $id;
-}
-/**
-* Given an object containing all the necessary data,
-* (defined by the form in mod.html) this function
-* will update an existing instance with new data.
-*
-* @param mixed $scormcloud Form data
-* @return int
-*/
-function scormcloud_update_instance($scormcloud) {
-    global $CFG;
-	$scormcloud->id = $scormcloud->instance;
-    if ($result = update_record('scormcloud', $scormcloud)) {
-    }
+    $scormcloud->id = $scormcloud->instance;
 
-    return $result;
+    # You may have to add extra stuff in here #
+
+    return $DB->update_record('scormcloud', $scormcloud);
 }
+
 /**
-* Given an ID of an instance of this module,
-* this function will permanently delete the instance
-* and any data that depends on it.
-*
-* @param int $id Scorm instance id
-* @return boolean
-*/
+ * Given an ID of an instance of this module,
+ * this function will permanently delete the instance
+ * and any data that depends on it.
+ *
+ * @param int $id Id of the module instance
+ * @return boolean Success/Failure
+ */
 function scormcloud_delete_instance($id) {
+    global $DB;
 
-    global $CFG;
-    
-    //call scormcloud to tell it to delete course $id
-   	$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
-	$courseService = $ScormService->getCourseService();
-	$cloudresult = $courseService->DeleteCourse($id); //delete all versions here
-    
-    if(scormcloud_write_log("scormcloud_delete_instance")) {
-    	//write to log...
+    if (! $scormcloud = $DB->get_record('scormcloud', array('id' => $id))) {
+        return false;
     }
-    //error_log('delete_instance',0);
-    if (! $scormcloud = get_record("scormcloud", "id", "$id")) {
-      return false;
-	}
 
-  $result = true;
+    # Delete any dependent records here #
 
-	
-
-
-
-  # Delete any dependent records here #
-    #lams_delete_lesson($USER->username,$lams->learning_session_id);
-  if (! delete_records("scormcloud", "id", "$scormcloud->id")) {
-     $result = false;
-  }
-  if (! delete_records("scormcloud_registrations", "scormcloudid", "$scormcloud->id")) {
-     $result = false;
-  }
-  return $result;
-}
-
-
-
-function scormcloud_get_view_actions() {
-    return array('pre-view','view','view all','report');
-}
-
-/**
- * Actual implementation of the rest coures functionality, delete all the
- * scorm attempts for course $data->courseid.
- * @param $data the data submitted from the reset course.
- * @return array status array
- */
-function scormcloud_reset_userdata($data) {
-    global $CFG;
-    if(scormcloud_write_log("scormcloud_reset_userdata")) {
-    	//write to log...
-    }
-}
-
-/**
- * Write To Log File
- *
- * @param string $message test to write to log
- * 
- * @return bool success
- */
-function scormcloud_write_log($message) {
-    global $CFG;
-	
-	$fh = fopen('scormcloud_mod.log', 'a');
-	
-	fwrite($fh, '['.date("D dS M,Y h:i a").'] - '.$message."\n");
-	
-	fclose($fh);
-
-	return true;
-
-}
-
-
-/**
- * Function to be run periodically according to the moodle cron
- * This function searches for things that need to be done, such 
- * as sending out mail, toggling flags etc ... 
- *
- * @uses $CFG
- * @return boolean
- * @todo Finish documenting this function
- **/
-function scormcloud_cron () {
-    global $CFG;
+    $DB->delete_records('scormcloud', array('id' => $scormcloud->id));
 
     return true;
 }
 
+/**
+ * Return a small object with summary information about what a
+ * user has done with a given particular instance of this module
+ * Used for user activity reports.
+ * $return->time = the time they did it
+ * $return->info = a short text description
+ *
+ * @return null
+ * @todo Finish documenting this function
+ */
+function scormcloud_user_outline($course, $user, $mod, $scormcloud) {
+    $return = new stdClass;
+    $return->time = 0;
+    $return->info = '';
+    return $return;
+}
 
 /**
- * Execute post-install custom actions for the module
+ * Print a detailed representation of what a user has done with
+ * a given particular instance of this module, for user activity reports.
+ *
+ * @return boolean
+ * @todo Finish documenting this function
+ */
+function scormcloud_user_complete($course, $user, $mod, $scormcloud) {
+    return true;
+}
+
+/**
+ * Given a course and a time, this module should find recent activity
+ * that has occurred in scormcloud activities and print it out.
+ * Return true if there was output, or false is there was none.
+ *
+ * @return boolean
+ * @todo Finish documenting this function
+ */
+function scormcloud_print_recent_activity($course, $viewfullnames, $timestart) {
+    return false;  //  True if anything was printed, otherwise false
+}
+
+/**
+ * Function to be run periodically according to the moodle cron
+ * This function searches for things that need to be done, such
+ * as sending out mail, toggling flags etc ...
+ *
+ * @return boolean
+ * @todo Finish documenting this function
+ **/
+function scormcloud_cron () {
+    return true;
+}
+
+/**
+ * Must return an array of users who are participants for a given instance
+ * of scormcloud. Must include every user involved in the instance,
+ * independient of his role (student, teacher, admin...). The returned
+ * objects must contain at least id property.
+ * See other modules as example.
+ *
+ * @param int $scormcloudid ID of an instance of this module
+ * @return boolean|array false if no participants, array of objects otherwise
+ */
+function scormcloud_get_participants($scormcloudid) {
+    return false;
+}
+
+/**
+ * This function returns if a scale is being used by one scormcloud
+ * if it has support for grading and scales. Commented code should be
+ * modified if necessary. See forum, glossary or journal modules
+ * as reference.
+ *
+ * @param int $scormcloudid ID of an instance of this module
+ * @return mixed
+ * @todo Finish documenting this function
+ */
+function scormcloud_scale_used($scormcloudid, $scaleid) {
+    global $DB;
+
+    $return = false;
+
+    //$rec = $DB->get_record("scormcloud", array("id" => "$scormcloudid", "scale" => "-$scaleid"));
+    //
+    //if (!empty($rec) && !empty($scaleid)) {
+    //    $return = true;
+    //}
+
+    return $return;
+}
+
+/**
+ * Checks if scale is being used by any instance of scormcloud.
  * This function was added in 1.9
  *
- * @return boolean true if success, false on error
+ * This is used to find out if scale used anywhere
+ * @param $scaleid int
+ * @return boolean True if the scale is used by any scormcloud
  */
+function scormcloud_scale_used_anywhere($scaleid) {
+    global $DB;
+
+    if ($scaleid and $DB->record_exists('scormcloud', 'grade', -$scaleid)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function scormcloud_install() {
-     return true;
+	return true;
 }
 
 /**
@@ -297,12 +230,3 @@ function scormcloud_install() {
 function scormcloud_uninstall() {
     return true;
 }
-
-//////////////////////////////////////////////////////////////////////////////////////
-/// Any other scormcloud functions go here.  Each of them must have a name that 
-/// starts with scormcloud_
-/// Remember (see note in first lines) that, if this section grows, it's HIGHLY
-/// recommended to move all funcions below to a new "localib.php" file.
-
-
-?>

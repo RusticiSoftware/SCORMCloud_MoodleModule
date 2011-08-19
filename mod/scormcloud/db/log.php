@@ -15,21 +15,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * Defines the version of scormcloud
- *
- * This code fragment is called by moodle_needs_upgrading() and
- * /admin/index.php
+ * Definition of log events
+ * NOTE: this is an example how to insert log event during installation/update.
+ * It is not really essential to know about it, but these logs were created as example
+ * in the previous 1.9 NEWMODULE.
  *
  * @package   mod_scormcloud
- * @copyright 2010 Your Name
+ * @copyright 2010 Your Name <your@email.adress>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-//$module->version  = 0;           // If version == 0 then module will not be installed
-$module->version  = 2011081700;  // The current module version (Date: YYYYMMDDXX)
-$module->requires = 2010031900;  // Requires this Moodle version
-$module->cron     = 0;           // Period for cron to check this module (secs)
+global $DB;
+
+$logs = array(
+    array('module'=>'scormcloud', 'action'=>'add', 'mtable'=>'scormcloud', 'field'=>'name'),
+    array('module'=>'scormcloud', 'action'=>'update', 'mtable'=>'scormcloud', 'field'=>'name'),
+    array('module'=>'scormcloud', 'action'=>'view', 'mtable'=>'scormcloud', 'field'=>'name'),
+    array('module'=>'scormcloud', 'action'=>'view all', 'mtable'=>'scormcloud', 'field'=>'name')
+);
