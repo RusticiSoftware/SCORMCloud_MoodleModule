@@ -52,10 +52,10 @@ class mod_scormcloud_mod_form extends moodleform_mod {
         //$mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         //$mform->addHelpButton('name', 'scormcloudname', 'scormcloud');
 
-        $mform->addElement('checkbox', 'allowpreview', get_string('allowpreview', 'scormcloud'));
-    /*/// Adding the standard "intro" and "introformat" fields
-        $this->add_intro_editor();
-
+        //$mform->addElement('checkbox', 'allowpreview', get_string('allowpreview', 'scormcloud'));
+    /// Adding the standard "intro" and "introformat" fields
+        //$this->add_intro_editor();
+/*
 //-------------------------------------------------------------------------------
     /// Adding the rest of scormcloud settings, spreeading all them into this fieldset
     /// or adding more fieldsets ('header' elements) if needed for better logic

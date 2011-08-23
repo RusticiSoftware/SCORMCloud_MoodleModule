@@ -21,7 +21,6 @@
  *   along with the SCORM Cloud Module.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 /**
  * Library of interface functions and constants for module scormcloud
  *
@@ -32,22 +31,11 @@
  * Moodle is performing actions across all modules.
  *
  * @package   mod_scormcloud
- * @copyright 2010 Your Name
+ * @copyright 2011 Rustici Software
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
-
-/** example constant */
-//define('NEWMODULE_ULTIMATE_ANSWER', 42);
-
-/**
- * If you for some reason need to use global variables instead of constants, do not forget to make them
- * global as this file can be included inside a function scope. However, using the global variables
- * at the module level is not a recommended.
- */
-//global $NEWMODULE_GLOBAL_VARIABLE;
-//$NEWMODULE_QUESTION_OF = array('Life', 'Universe', 'Everything');
 
 /**
  * Given an object containing all the necessary data,
@@ -62,8 +50,6 @@ function scormcloud_add_instance($scormcloud) {
     global $DB;
 
     $scormcloud->timecreated = time();
-
-    # You may have to add extra stuff in here #
 
     return $DB->insert_record('scormcloud', $scormcloud);
 }
@@ -80,9 +66,6 @@ function scormcloud_update_instance($scormcloud) {
     global $DB;
 
     $scormcloud->timemodified = time();
-    $scormcloud->id = $scormcloud->instance;
-
-    # You may have to add extra stuff in here #
 
     return $DB->update_record('scormcloud', $scormcloud);
 }
@@ -101,8 +84,6 @@ function scormcloud_delete_instance($id) {
     if (! $scormcloud = $DB->get_record('scormcloud', array('id' => $id))) {
         return false;
     }
-
-    # Delete any dependent records here #
 
     $DB->delete_records('scormcloud', array('id' => $scormcloud->id));
 
@@ -190,12 +171,6 @@ function scormcloud_scale_used($scormcloudid, $scaleid) {
 
     $return = false;
 
-    //$rec = $DB->get_record("scormcloud", array("id" => "$scormcloudid", "scale" => "-$scaleid"));
-    //
-    //if (!empty($rec) && !empty($scaleid)) {
-    //    $return = true;
-    //}
-
     return $return;
 }
 
@@ -229,4 +204,11 @@ function scormcloud_install() {
  */
 function scormcloud_uninstall() {
     return true;
+}
+
+function scormcloud_get_user_data($uid) {
+	global $CFG;
+	global $DB;
+
+    return $DB->get_record('user', array('id' => $uid));
 }

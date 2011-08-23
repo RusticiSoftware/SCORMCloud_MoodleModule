@@ -1,20 +1,25 @@
 <?php
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
+/*
+ *   Copyright 2011 Rustici Software.
+ *
+ *   This file is part of the SCORM Cloud Module for Moodle.
+ *   https://github.com/RusticiSoftware/SCORMCloud_MoodleModule
+ *   http://scorm.com/moodle/
+ *
+ *   The SCORM Cloud Module is free software: you can redistribute it and/or
+ *   modify it under the terms of the GNU General Public License as published
+ *   by the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   The SCORM Cloud Module is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with the SCORM Cloud Module.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /**
  * Prints a particular instance of scormcloud
@@ -23,50 +28,78 @@
  * if you like, and it can span multiple lines.
  *
  * @package   mod_scormcloud
- * @copyright 2010 Your Name
+ * @copyright 2011 Rustici Software
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/// (Replace scormcloud with the name of your module and remove this line)
+require_once("../../config.php");
+require_once("lib.php");
+require_once("locallib.php");
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
+require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
+require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
+require_once('SCORMCloud_PHPLibrary/CourseData.php');
 
-$id = optional_param('id', 0, PARAM_INT); // course_module ID, or
-$n  = optional_param('n', 0, PARAM_INT);  // scormcloud instance ID - it should be named as the first character of the module
+global $DB;
+$id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
+$a  = optional_param('a', 0, PARAM_INT);  // scormcloud ID
 
-if ($id) {
-    $cm         = get_coursemodule_from_id('scormcloud', $id, 0, false, MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-    $scormcloud  = $DB->get_record('scormcloud', array('id' => $cm->instance), '*', MUST_EXIST);
-} elseif ($n) {
-    $scormcloud  = $DB->get_record('scormcloud', array('id' => $n), '*', MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $scormcloud->course), '*', MUST_EXIST);
-    $cm         = get_coursemodule_from_instance('scormcloud', $scormcloud->id, $course->id, false, MUST_EXIST);
+if (!empty($id)) {
+	if (! $cm = get_coursemodule_from_id('scormcloud', $id)) {
+		error("Course Module ID was incorrect");
+	}
+	if (! $course = $DB->get_record("course", array("id" => $cm->course))) {
+		error("Course is misconfigured");
+	}
+	if (! $scormcloud = $DB->get_record("scormcloud", array("id" => $cm->instance))) {
+		error("Course module is incorrect");
+	}
+} else if (!empty($a)) {
+	if (! $scormcloud = $DB->get_record("scormcloud", array("id" => $a))) {
+		error("Course module is incorrect");
+	}
+	if (! $course = $DB->get_record("course", array('id' => $scormcloud->course))) {
+		error("Course is misconfigured");
+	}
+	if (! $cm = get_coursemodule_from_instance("scormcloud", $scormcloud->id, $course->id)) {
+		error("Course Module ID was incorrect");
+	}
 } else {
-    error('You must specify a course_module ID or an instance ID');
+	error('A required parameter is missing');
 }
 
-require_login($course, true, $cm);
+$module = $course->format;
 
-add_to_log($course->id, 'scormcloud', 'view', "view.php?id=$cm->id", $scormcloud->name, $cm->id);
+require_login($course->id);
+
+add_to_log($course->id, "scormcloud", "view", "view.php?id=$cm->id", "$scormcloud->id");
 
 /// Print the page header
+$strscormclouds = get_string("modulenameplural", "scormcloud");
+$strscormcloud  = get_string("modulename", "scormcloud");
+
+$navlinks = array();
+$navlinks[] = array('name' => $strscormclouds, 'link' => "index.php?id=$course->id", 'type' => 'activity');
+$navlinks[] = array('name' => format_string($scormcloud->name), 'link' => '', 'type' => 'activityinstance');
+
+$navigation = build_navigation($navlinks);
 
 $PAGE->set_url('/mod/scormcloud/view.php', array('id' => $cm->id));
 $PAGE->set_title($scormcloud->name);
 $PAGE->set_heading($course->shortname);
-$PAGE->set_button(update_module_button($cm->id, $course->id, get_string('modulename', 'scormcloud')));
 
-// other things you may want to set - remove if not needed
-//$PAGE->set_cacheable(false);
-//$PAGE->set_focuscontrol('some-html-id');
+print_header_simple(format_string($scormcloud->name), "", $navigation, "", "", true,
+update_module_button($cm->id, $course->id, $strscormcloud), navmenu($course, $cm));
 
-// Output starts here
-echo $OUTPUT->header();
+/// Print the main part of the page
 
-// Replace the following lines with you own code
-echo $OUTPUT->heading('Yay! It works!');
+$moduleformat = 'scormcloud_course_format_display';
+if (function_exists($moduleformat)) {
+	//error_log($moduleformat);
+	$moduleformat($USER,$course);
+} else {
+	notify('The module '. $module. ' is not implemented properly. (Programmer Error)');
+}
 
-// Finish the page
-echo $OUTPUT->footer();
+/// Finish the page
+$OUTPUT->footer();
