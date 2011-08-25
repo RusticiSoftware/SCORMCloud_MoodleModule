@@ -44,18 +44,23 @@ if ($regid != null) {
 			$courseid = $scormcloud->course;
 			
 			// Get the results from the cloud
-			$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
+			$ScormService = scormcloud_get_service();
 			$regService = $ScormService->getRegistrationService();
 			$resultsxml = $regService->GetRegistrationResult($regid, 0, 'xml');
 			$results = simplexml_load_string($resultsxml);
+			
+			$score = $results->registrationreport->score;
+			if ($score == 'unknown') {
+				$score = 0;
+			}
 
-			$log->logDebug('Updating Moodle gradebook ' . $reg->userid . ' - ' . $courseid . ' - ' . $results->registrationreport->score);
+			$log->logDebug('Updating Moodle gradebook ' . $reg->userid . ' - ' . $courseid . ' - ' . $score);
 				
-			if (scormcloud_grade_item_update($reg->userid, $reg->scormcloudid, (string)$results->registrationreport->score)) {
+			if (scormcloud_grade_item_update($reg->userid, $reg->scormcloudid, $score)) {
 				$log->$logInfo('Updated Moodle gradebook for course ' . $courseid);
 			} else {
 				$log->logWarn('Error updating Moodle gradebook for course ' . $courseid . '. Retrying.');
-				if (scormcloud_grade_item_update($reg->userid, $reg->scormcloudid, (string)$results->registrationreport->score)) {
+				if (scormcloud_grade_item_update($reg->userid, $reg->scormcloudid, $score)) {
 					$log->logInfo('Updated Moodle gradebook for course ' . $courseid . ' after successful retry.');
 				} else {
 					$log->logError('Second attempt to update Moodle gradebook for course ' . $courseid . ' failed.');

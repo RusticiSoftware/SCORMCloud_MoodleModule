@@ -39,7 +39,7 @@ $mode = optional_param('mode', 'launch', PARAM_RAW);
 
 $regid = '';
 
-$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
+$ScormService = scormcloud_get_service();
 $regService = $ScormService->getRegistrationService();
 
 $log->logDebug('Checking for Moodle registration.');

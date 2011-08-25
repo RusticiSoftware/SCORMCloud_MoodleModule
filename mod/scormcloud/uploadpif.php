@@ -25,6 +25,8 @@ require_once("../../config.php");
 
 global $CFG;
 
+require_once('locallib.php');
+
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
 require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
 require_once('SCORMCloud_PHPLibrary/CourseData.php');
@@ -39,9 +41,10 @@ if($mode == null)
 
 $id = str_replace('%7C','|',$id);
 
-$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
+$ScormService = scormcloud_get_service();
 $uploadService = $ScormService->getUploadService();
 
+echo '<html>';
 echo '<br><br>';
 echo '<table style="width:100%">';
 echo '<tr><td style="text-align:center">';

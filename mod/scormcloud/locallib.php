@@ -41,10 +41,24 @@ require_once('lib/KLogger.php');
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
 require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
 require_once('SCORMCloud_PHPLibrary/CourseData.php');
+require_once('SCORMCloud_PHPLibrary/ScormEngineUtilities.php');
 require_once('ui/ReportageUI.php');
 
 global $log;
 $log = new KLogger('/tmp', KLogger::DEBUG);
+
+function scormcloud_get_service()
+{
+	global $CFG;
+	global $log;
+	$module = new stdClass();
+	require('version.php');
+	
+	$origin = ScormEngineUtilities::getCanonicalOriginString('Rustici Software', 'Moodle', '2.0-' . $module->version);
+	
+	$log->logDebug("Building ScormEngineService with origin = $origin");
+	return new ScormEngineService($CFG->scormcloud_serviceurl, $CFG->scormcloud_appid, $CFG->scormcloud_secretkey, $origin);
+}
 
 /**
  * Handles the display of the SCORM Cloud course format.
@@ -84,7 +98,7 @@ function scormcloud_course_format_display($user, $course)
 	if ($scormclouds = get_all_instances_in_course('scormcloud', $course)) {
 		$scormcloud = get_scormcloud_instance($course);
 
-		$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
+		$ScormService = scormcloud_get_service();
 		$rptService = $ScormService->getReportingService();
 
 		$rptAuth = $rptService->GetReportageAuth('FREENAV',true);
@@ -171,7 +185,7 @@ function scormcloud_course_exists_on_cloud($courseid)
 
 	$log->logInfo('URL: '.$CFG->scormcloud_serviceurl.', AppID: '.$CFG->scormcloud_appid.', Key: '.$CFG->scormcloud_secretkey);
 
-	$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl, $CFG->scormcloud_appid, $CFG->scormcloud_secretkey);
+	$ScormService = scormcloud_get_service();
 	$courseService = $ScormService->getCourseService();
 
 	$allResults = $courseService->GetCourseList($courseid);

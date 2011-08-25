@@ -40,7 +40,7 @@ $location = required_param('location', PARAM_RAW);
 $success = required_param('success', PARAM_RAW);
 
 $log->logInfo('Creating ScormService : '.$CFG->scormcloud_serviceurl.' - '.$CFG->scormcloud_appid.' - '.$CFG->scormcloud_secretkey);
-$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
+$ScormService = scormcloud_get_service();
 $courseService = $ScormService->getCourseService();
 
 $id = str_replace('%7C','|',$courseid);

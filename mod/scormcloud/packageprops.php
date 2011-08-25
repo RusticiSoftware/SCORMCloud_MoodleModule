@@ -25,13 +25,13 @@ require_once("../../config.php");
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
 require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
 require_once('SCORMCloud_PHPLibrary/CourseData.php');
-
+require_once('locallib.php');
 
 global $CFG;
 
 $courseid = required_param('id', PARAM_INT);   // course id
 
-$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl, $CFG->scormcloud_appid, $CFG->scormcloud_secretkey);
+$ScormService = scormcloud_get_service();
 $courseService = $ScormService->getCourseService();
 $cssurl = $CFG->wwwroot . '/mod/scormcloud/packageprops.css';
 
