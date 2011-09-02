@@ -47,7 +47,7 @@ $string['appid_desc'] = 'Enter the AppId provided for your account.';
 $string['secretkey'] = 'Secret Key';
 $string['secretkey_desc'] = 'Enter the Secret Key provided for your account.';
 
-$string['explaingeneralconfig'] = 'Enter your SCORM Cloud Engine API information below.<br>If you dont have a key yet, click <a href={$CFG->wwwroot}/mod/scormcloud/signup.php target=_blank >here</a> to sign up and receive your appid and secret key via email.';
+$string['explaingeneralconfig'] = 'Enter your SCORM Cloud Engine API information below.<br>If you dont have a key yet, click <a href="https://cloud.scorm.com/sc/guest/SignUpForm" target="_blank">here</a> to sign up and receive your appid and secret key via email.';
 $string['generalconfig'] = 'SCORM Cloud API Configuration';
 
 $string['launchmessage'] = 'Your course is being launched in a new window. This window will automatically close once you exit the course.';
