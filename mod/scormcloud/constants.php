@@ -22,10 +22,7 @@
  */
 
 /**
- * Defines the version of scormcloud
- *
- * This code fragment is called by moodle_needs_upgrading() and
- * /admin/index.php
+ * Constant values used by the SCORM Cloud module
  *
  * @package   mod_scormcloud
  * @copyright 2011 Rustici Software
@@ -34,6 +31,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version  = 2011090201;  // The current module version (Date: YYYYMMDDXX)
-$module->requires = 2010031900;  // Requires this Moodle version
-$module->cron     = 0;           // Period for cron to check this module (secs)
+define('SCORMCLOUD_TABLE', 'scormcloud');
+define('REGISTRATIONS_TABLE', 'scormcloud_registrations');

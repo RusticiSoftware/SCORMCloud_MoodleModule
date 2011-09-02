@@ -34,53 +34,36 @@ require_once('SCORMCloud_PHPLibrary/UploadService.php');
 
 global $log;
 
-$courseid = required_param('courseid', PARAM_RAW);
 $mode = optional_param('mode', 'import', PARAM_RAW);
-$location = required_param('location', PARAM_RAW);
+$courseId = required_param('moodleid', PARAM_RAW);
+$scormcloudid = required_param('courseid', PARAM_RAW);
+$title = optional_param('title', PARAM_RAW);
 $success = required_param('success', PARAM_RAW);
 
 $log->logInfo('Creating ScormService : '.$CFG->scormcloud_serviceurl.' - '.$CFG->scormcloud_appid.' - '.$CFG->scormcloud_secretkey);
 $ScormService = scormcloud_get_service();
 $courseService = $ScormService->getCourseService();
 
-$id = str_replace('%7C','|',$courseid);
-$ids = explode('|',$id);
-$courseId = $ids[0];
-$scormcloudid = $ids[1];
 
 if ($success == 'true')
 {
-	echo '<h2>Importing Package...</h2>';
-
-	if ($mode == 'update')
-	{
-		$result = $courseService->UpdateAssetsFromUploadedFile($scormcloudid, $location);
-		$log->logInfo('UpdateAssets complete. Result = '.$result);
-		echo $result;
-	} else {
-		$log->logInfo('scormcloud_mod attempting to import to SCORMCloud...');
-		$results = $courseService->ImportUploadedCourse($scormcloudid, $location, null);
-		$log->logInfo('scormcloud_mod cloud import complete. parsing results...');
-		$log->logInfo(count($results).' results.');
+	$log->logDebug('Import successful.');
+	
+	if ($mode == 'new') {
+		$log->logDebug('Not an update, initializing Moodle scormcloud instance.');
 		
-		$result = current($results);
-		if (!$result->getWasSuccessful()) {
-			error($result->getMessage());
-		}
-		
-		$log->logInfo('importResult='.$result->getTitle());
 		$scormcloud = new stdClass();
 		$scormcloud->id = $scormcloudid;
 		$scormcloud->course = $courseId;
-		$scormcloud->name = $result->getTitle();
+		$scormcloud->name = $title;
 		$scormcloud->timecreated = time();
 		$scormcloud->scoreformat = '0';
 		
 		scormcloud_update_instance($scormcloud);
-		$log->logInfo('scormcloud_mod import complete');
 	}
-
-	echo '<script>window.location.reload();</script>';
+	
+	echo '<script>self.parent.location.reload();</script>';
+	
 } else {
 	echo 'There was an error uploading your package. Please try again.';
 

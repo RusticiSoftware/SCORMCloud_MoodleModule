@@ -42,7 +42,11 @@ if($mode == null)
 $id = str_replace('%7C','|',$id);
 
 $ScormService = scormcloud_get_service();
-$uploadService = $ScormService->getUploadService();
+$courseService = $ScormService->getCourseService();
+
+$parts = explode('|', $id);
+$cloudId = $parts[1];
+$moodleId = $parts[0];
 
 echo '<html>';
 echo '<br><br>';
@@ -51,12 +55,14 @@ echo '<tr><td style="text-align:center">';
 if($mode == 'new' || $mode == null)
 {
 	echo '<h2>There is no SCORM package for this course yet. <br>Please upload one to get started.</h2>';
+	$action = $courseService->GetImportCourseUrl($cloudId, $CFG->wwwroot.'/mod/scormcloud/importcallback.php?moodleid='.$moodleId.'&mode='.$mode);
 }else{
 	echo '<h2>Select a package for this updated version.</h2>';
+	$action = $courseService->GetUpdateAssetsUrl($cloudId, $CFG->wwwroot.'/mod/scormcloud/importcallback.php?moodleid='.$moodleId.'&mode='.$mode);
 }
 echo '</td></tr>';
 echo '<tr><td style="text-align:center">';
-echo '<form id="uploadform" action="'.$uploadService->GetUploadLink($CFG->wwwroot.'/mod/scormcloud/importcallback.php?courseid='.$id.'&mode='.$mode).'" method="post" ';
+echo '<form id="uploadform" action="'.$action.'" method="post" ';
 echo 'enctype="multipart/form-data">';
 echo '<label for="file">Filename:</label>';
 echo '<input type="file" name="filedata" id="file" /> ';

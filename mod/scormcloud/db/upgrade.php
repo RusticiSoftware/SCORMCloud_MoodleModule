@@ -50,16 +50,6 @@ function xmldb_scormcloud_upgrade($oldversion) {
     global $DB;
 
     $dbman = $DB->get_manager();
-    
-    if ($oldversion < 2011090100)
-    {
-    	// Changes on 2011/09/01 renamed the plugin tables to follow proper frankenstyle for modules/plugins
-    	$scormcloud = new xmldb_table('scormcloud');
-    	$dbman->rename_table($scormcloud, 'mod_scormcloud', $continue=true, $feedback=true);
-    	
-    	$registrations = new xmldb_table('scormcloud_registrations');
-    	$dbman->rename_table($registrations, 'mod_scormcloud_registrations', $continue=true, $feedback=true);
-    }
 
     return true;
 }

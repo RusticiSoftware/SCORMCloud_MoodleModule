@@ -35,6 +35,7 @@
 require_once("../../config.php");
 require_once("lib.php");
 require_once("locallib.php");
+require_once('constants.php');
 
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
 require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
@@ -51,17 +52,17 @@ if (!empty($id)) {
 	if (! $course = $DB->get_record("course", array("id" => $cm->course))) {
 		error("Course is misconfigured");
 	}
-	if (! $scormcloud = $DB->get_record("scormcloud", array("id" => $cm->instance))) {
+	if (! $scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array("id" => $cm->instance))) {
 		error("Course module is incorrect");
 	}
 } else if (!empty($a)) {
-	if (! $scormcloud = $DB->get_record("scormcloud", array("id" => $a))) {
+	if (! $scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array("id" => $a))) {
 		error("Course module is incorrect");
 	}
 	if (! $course = $DB->get_record("course", array('id' => $scormcloud->course))) {
 		error("Course is misconfigured");
 	}
-	if (! $cm = get_coursemodule_from_instance("scormcloud", $scormcloud->id, $course->id)) {
+	if (! $cm = get_coursemodule_from_instance(SCORMCLOUD_TABLE, $scormcloud->id, $course->id)) {
 		error("Course Module ID was incorrect");
 	}
 } else {

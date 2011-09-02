@@ -37,6 +37,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once('constants.php');
+
 /**
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
@@ -51,7 +53,7 @@ function scormcloud_add_instance($scormcloud) {
 
     $scormcloud->timecreated = time();
 
-    return $DB->insert_record('scormcloud', $scormcloud);
+    return $DB->insert_record(SCORMCLOUD_TABLE, $scormcloud);
 }
 
 /**
@@ -67,7 +69,7 @@ function scormcloud_update_instance($scormcloud) {
 
     $scormcloud->timemodified = time();
 
-    return $DB->update_record('scormcloud', $scormcloud);
+    return $DB->update_record(SCORMCLOUD_TABLE, $scormcloud);
 }
 
 /**
@@ -81,11 +83,11 @@ function scormcloud_update_instance($scormcloud) {
 function scormcloud_delete_instance($id) {
     global $DB;
 
-    if (! $scormcloud = $DB->get_record('scormcloud', array('id' => $id))) {
+    if (! $scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $id))) {
         return false;
     }
 
-    $DB->delete_records('scormcloud', array('id' => $scormcloud->id));
+    $DB->delete_records(SCORMCLOUD_TABLE, array('id' => $scormcloud->id));
 
     return true;
 }
@@ -185,7 +187,7 @@ function scormcloud_scale_used($scormcloudid, $scaleid) {
 function scormcloud_scale_used_anywhere($scaleid) {
     global $DB;
 
-    if ($scaleid and $DB->record_exists('scormcloud', 'grade', -$scaleid)) {
+    if ($scaleid and $DB->record_exists(SCORMCLOUD_TABLE, 'grade', -$scaleid)) {
         return true;
     } else {
         return false;
