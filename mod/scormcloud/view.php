@@ -46,25 +46,13 @@ $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
 $a  = optional_param('a', 0, PARAM_INT);  // scormcloud ID
 
 if (!empty($id)) {
-	if (! $cm = get_coursemodule_from_id('scormcloud', $id)) {
-		error("Course Module ID was incorrect");
-	}
-	if (! $course = $DB->get_record("course", array("id" => $cm->course))) {
-		error("Course is misconfigured");
-	}
-	if (! $scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array("id" => $cm->instance))) {
-		error("Course module is incorrect");
-	}
+	$cm = get_coursemodule_from_id('scormcloud', $id, 0, false, MUST_EXIST);
+	$course = $DB->get_record("course", array("id" => $cm->course), '*', MUST_EXIST);
+	$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array("id" => $cm->instance), '*', MUST_EXIST);
 } else if (!empty($a)) {
-	if (! $scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array("id" => $a))) {
-		error("Course module is incorrect");
-	}
-	if (! $course = $DB->get_record("course", array('id' => $scormcloud->course))) {
-		error("Course is misconfigured");
-	}
-	if (! $cm = get_coursemodule_from_instance(SCORMCLOUD_TABLE, $scormcloud->id, $course->id)) {
-		error("Course Module ID was incorrect");
-	}
+	$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array("id" => $a), '*', MUST_EXIST);
+	$course = $DB->get_record("course", array('id' => $scormcloud->course), '*', MUST_EXIST);
+	$cm = get_coursemodule_from_instance(SCORMCLOUD_TABLE, $scormcloud->id, $course->id, false, MUST_EXIST);
 } else {
 	error('A required parameter is missing');
 }
