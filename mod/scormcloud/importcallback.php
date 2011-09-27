@@ -22,7 +22,6 @@
  */
 
 require_once('../../config.php');
-global $CFG;
 
 require_once("lib.php");
 require_once('locallib.php');
@@ -34,11 +33,11 @@ require_once('SCORMCloud_PHPLibrary/UploadService.php');
 
 global $log;
 
-$mode = optional_param('mode', 'import', PARAM_RAW);
-$courseId = required_param('moodleid', PARAM_RAW);
-$scormcloudid = required_param('courseid', PARAM_RAW);
+$mode = optional_param('mode', 'import', PARAM_ALPHA);
+$courseId = required_param('moodleid', PARAM_INT);
+$scormcloudid = required_param('courseid', PARAM_INT);
 $title = optional_param('title', PARAM_RAW);
-$success = required_param('success', PARAM_RAW);
+$success = required_param('success', PARAM_ALPHA);
 
 $log->logInfo('Creating ScormService : '.$CFG->scormcloud_serviceurl.' - '.$CFG->scormcloud_appid.' - '.$CFG->scormcloud_secretkey);
 $ScormService = scormcloud_get_service();
