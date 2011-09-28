@@ -29,7 +29,6 @@ require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
 require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
 require_once('SCORMCloud_PHPLibrary/CourseData.php');
 
-global $DB;
 global $log;
 
 $regid = optional_param("id", null, PARAM_RAW);

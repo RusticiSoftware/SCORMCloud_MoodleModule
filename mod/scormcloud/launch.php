@@ -35,7 +35,7 @@ global $DB;
 
 $courseid = required_param('courseid', PARAM_INT);
 $userid = required_param('userid', PARAM_INT);
-$mode = optional_param('mode', 'launch', PARAM_RAW);
+$mode = optional_param('mode', 'launch', PARAM_ALPHA);
 
 $regid = '';
 
