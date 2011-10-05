@@ -39,6 +39,11 @@ if($mode == null)
 	$mode = 'new';
 }
 
+require_login($id);
+if (!scormcloud_hascapabilitytomanage($id)) {
+    error("You don't have permission to upload a course to the SCORM Cloud. This must be done by a user with sufficient privileges (usually a teacher or administrator).");
+}
+
 $id = str_replace('%7C','|',$id);
 
 $ScormService = scormcloud_get_service();
