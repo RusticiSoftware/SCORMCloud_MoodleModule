@@ -203,6 +203,31 @@ function scormcloud_course_exists_on_cloud($courseid)
 	return $courseExists;
 }
 
+function scormcloud_get_coursemodule($id) {
+    if (empty($id)) {
+        $id = optional_param('id', 0, PARAM_INT);
+    }
+    
+    if (!empty($id)) {
+        return get_coursemodule_from_id('scormcloud', $id, 0, false, MUST_EXIST);
+    }
+}
+
+function scormcloud_hascapabilitytoviewcourse($id) {
+    $context = get_context_instance(CONTEXT_COURSE, $id);
+    return has_capability('moodle/course:view', $context);
+}
+
+function scormcloud_hascapabilitytolaunch($id) {
+    $context = get_context_instance(CONTEXT_MODULE, scormcloud_get_coursemodule($id));
+    return has_capability('mod/scormcloud:launch', $context);
+}
+
+function scormcloud_hascapabilitytomanage($id) {
+    $context = get_context_instance(CONTEXT_MODULE, scormcloud_get_coursemodule($id));
+    return has_capability('mod/scormcloud:manage', $context);
+}
+
 function scormcloud_getSatVal($satVal){
 	switch($satVal)
 	{
