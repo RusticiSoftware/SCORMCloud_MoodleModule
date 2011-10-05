@@ -34,10 +34,15 @@ global $CFG;
 global $DB;
 
 $courseid = required_param('courseid', PARAM_INT);
-$userid = required_param('userid', PARAM_INT);
 $mode = optional_param('mode', 'launch', PARAM_ALPHA);
 
+$userid = $USER->id;
 $regid = '';
+
+require_login($courseid);
+if (!scormcloud_hascapabilitytolaunch($courseid) || !scormcloud_hascapabilitytoviewcourse($courseid)) {
+    error("You do not have permission to launch this course.");
+}
 
 $ScormService = scormcloud_get_service();
 $regService = $ScormService->getRegistrationService();

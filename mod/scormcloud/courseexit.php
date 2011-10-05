@@ -38,74 +38,78 @@ if ($regid != null) {
 
 	if ($reg = $DB->get_record("scormcloud_registrations", array('regid' => $regid))) {
 		$log->logDebug('Found scormcloud_registration for regid ' . $regid);
+		
 		if ($scormcloud = $DB->get_record("scormcloud", array('id' => $reg->scormcloudid))) {
 			$log->logDebug('Found scormcloud record for id ' . $reg->scormcloudid);
 			$courseid = $scormcloud->course;
 			
-			// Get the results from the cloud
-			$ScormService = scormcloud_get_service();
-			$regService = $ScormService->getRegistrationService();
-			$resultsxml = $regService->GetRegistrationResult($regid, 0, 'xml');
-			$results = simplexml_load_string($resultsxml);
+			if (scormcloud_hascapabilitytolaunch($courseid) && $USER->id == $reg->userid) {
 			
-			$score = $results->registrationreport->score;
-			if ($score == 'unknown') {
-				$score = 0;
-			}
-
-			$log->logDebug('Updating Moodle gradebook ' . $reg->userid . ' - ' . $courseid . ' - ' . $score);
-				
-			if (scormcloud_grade_item_update($reg->userid, $reg->scormcloudid, $score)) {
-				$log->$logInfo('Updated Moodle gradebook for course ' . $courseid);
-			} else {
-				$log->logWarn('Error updating Moodle gradebook for course ' . $courseid . '. Retrying.');
-				if (scormcloud_grade_item_update($reg->userid, $reg->scormcloudid, $score)) {
-					$log->logInfo('Updated Moodle gradebook for course ' . $courseid . ' after successful retry.');
-				} else {
-					$log->logError('Second attempt to update Moodle gradebook for course ' . $courseid . ' failed.');
-				}
-			}
-				
-			$log->logDebug('Updating local scormcloud_registrations.');
-				
-			$log->logDebug('registrationreport->complete = ' . $results->registrationreport->complete);
-			switch ($results->registrationreport->complete)
-			{
-				case 'complete':
-					$completion = 1;
-					break;
-				case 'incomplete':
-					$completion = 2;
-					break;
-				default:
-					$completion = 0;
-					break;
-			}
-			
-			$reg->completion = $completion;
-				
-			$log->logDebug('registrationreport->sucess = ' . $results->registrationreport->success);
-			switch ($results->registrationreport->success)
-			{
-				case 'passed':
-					$success = 1;
-					break;
-				case 'failed':
-					$success = 2;
-					break;
-				default:
-					$success = 0;
-					break;
-			}
-			
-			$reg->satisfaction = $success;
-			$reg->totaltime = (int)$results->registrationreport->totaltime;
-			$reg->score = (int)$results->registrationreport->score;
-			
-			if ($result = $DB->update_record('scormcloud_registrations', $reg)) {
-				$log->logInfo('Updated scormcloud_registration.');
-			} else {
-				$log->logError('Failed to update scormcloud_registration.');
+        		// Get the results from the cloud
+        		$ScormService = scormcloud_get_service();
+        		$regService = $ScormService->getRegistrationService();
+        		$resultsxml = $regService->GetRegistrationResult($regid, 0, 'xml');
+        		$results = simplexml_load_string($resultsxml);
+        		
+        		$score = $results->registrationreport->score;
+        		if ($score == 'unknown') {
+        			$score = 0;
+        		}
+        
+        		$log->logDebug('Updating Moodle gradebook ' . $reg->userid . ' - ' . $courseid . ' - ' . $score);
+        			
+        		if (scormcloud_grade_item_update($reg->userid, $reg->scormcloudid, $score)) {
+        			$log->$logInfo('Updated Moodle gradebook for course ' . $courseid);
+        		} else {
+        			$log->logWarn('Error updating Moodle gradebook for course ' . $courseid . '. Retrying.');
+        			if (scormcloud_grade_item_update($reg->userid, $reg->scormcloudid, $score)) {
+        				$log->logInfo('Updated Moodle gradebook for course ' . $courseid . ' after successful retry.');
+        			} else {
+        				$log->logError('Second attempt to update Moodle gradebook for course ' . $courseid . ' failed.');
+        			}
+        		}
+        			
+        		$log->logDebug('Updating local scormcloud_registrations.');
+        			
+        		$log->logDebug('registrationreport->complete = ' . $results->registrationreport->complete);
+        		switch ($results->registrationreport->complete)
+        		{
+        			case 'complete':
+        				$completion = 1;
+        				break;
+        			case 'incomplete':
+        				$completion = 2;
+        				break;
+        			default:
+        				$completion = 0;
+        				break;
+        		}
+        		
+        		$reg->completion = $completion;
+        			
+        		$log->logDebug('registrationreport->sucess = ' . $results->registrationreport->success);
+        		switch ($results->registrationreport->success)
+        		{
+        			case 'passed':
+        				$success = 1;
+        				break;
+        			case 'failed':
+        				$success = 2;
+        				break;
+        			default:
+        				$success = 0;
+        				break;
+        		}
+        		
+        		$reg->satisfaction = $success;
+        		$reg->totaltime = (int)$results->registrationreport->totaltime;
+        		$reg->score = (int)$results->registrationreport->score;
+        		
+        		if ($result = $DB->update_record('scormcloud_registrations', $reg)) {
+        			$log->logInfo('Updated scormcloud_registration.');
+        		} else {
+        			$log->logError('Failed to update scormcloud_registration.');
+        		}
 			}
 		}
 	} else {
