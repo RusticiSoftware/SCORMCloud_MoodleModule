@@ -39,6 +39,11 @@ $scormcloudid = required_param('courseid', PARAM_INT);
 $title = optional_param('title', '', PARAM_RAW);
 $success = required_param('success', PARAM_ALPHA);
 
+require_login($courseId);
+if (!scormcloud_hascapabilitytomanage($courseId)) {
+    redirect($CFG->wwwroot . '/course/view.php?id=' . $courseId);
+}
+
 $log->logInfo('Creating ScormService : '.$CFG->scormcloud_serviceurl.' - '.$CFG->scormcloud_appid.' - '.$CFG->scormcloud_secretkey);
 $ScormService = scormcloud_get_service();
 $courseService = $ScormService->getCourseService();
