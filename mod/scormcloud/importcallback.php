@@ -36,7 +36,7 @@ global $log;
 $mode = optional_param('mode', 'import', PARAM_ALPHA);
 $courseId = required_param('moodleid', PARAM_INT);
 $scormcloudid = required_param('courseid', PARAM_INT);
-$title = optional_param('title', PARAM_RAW);
+$title = optional_param('title', '', PARAM_RAW);
 $success = required_param('success', PARAM_ALPHA);
 
 $log->logInfo('Creating ScormService : '.$CFG->scormcloud_serviceurl.' - '.$CFG->scormcloud_appid.' - '.$CFG->scormcloud_secretkey);
