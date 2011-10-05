@@ -31,6 +31,11 @@ global $CFG;
 
 $courseid = required_param('id', PARAM_INT);   // course id
 
+require_login($courseid);
+if (!scormcloud_hascapabilitytomanage($courseid)) {
+    redirect($CFG->wwwroot . '/course/view.php?id=' . $courseid);
+}
+
 $ScormService = scormcloud_get_service();
 $courseService = $ScormService->getCourseService();
 $cssurl = $CFG->wwwroot . '/mod/scormcloud/packageprops.css';
