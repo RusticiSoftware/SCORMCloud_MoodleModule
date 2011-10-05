@@ -39,6 +39,13 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once('constants.php');
 
+function scormcloud_supports($feature) {
+    switch ($feature) {
+        case FEATURE_MOD_INTRO: return false;
+        default: return null;
+    }
+}
+
 /**
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
