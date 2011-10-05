@@ -52,7 +52,7 @@ if ($success == 'true')
 		$log->logDebug('Not an update, initializing Moodle scormcloud instance.');
 		
 		$scormcloud = new stdClass();
-		$scormcloud->id = $scormcloudid;
+		$scormcloud->instance = $scormcloudid;
 		$scormcloud->course = $courseId;
 		$scormcloud->name = $title;
 		$scormcloud->timecreated = time();

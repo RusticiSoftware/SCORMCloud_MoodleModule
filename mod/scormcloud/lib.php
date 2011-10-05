@@ -75,7 +75,8 @@ function scormcloud_update_instance($scormcloud) {
     global $DB;
 
     $scormcloud->timemodified = time();
-
+    $scormcloud->id = $scormcloud->instance;
+    
     return $DB->update_record(SCORMCLOUD_TABLE, $scormcloud);
 }
 
