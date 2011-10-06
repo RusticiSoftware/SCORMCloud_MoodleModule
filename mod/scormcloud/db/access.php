@@ -55,6 +55,17 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
+    'mod/scormcloud:launch' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_MODULE,
+        'legacy' => array(
+            'student' => CAP_ALLOW,
+            'teacher' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
+            'admin' => CAP_ALLOW
+        )
+    ),
     'mod/scormcloud:manage' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
