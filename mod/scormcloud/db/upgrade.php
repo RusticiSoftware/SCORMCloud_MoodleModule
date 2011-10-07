@@ -39,6 +39,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once('../config.php');
+require_once($CFG->dirroot . '/mod/scormcloud/constants.php');
+
 /**
  * xmldb_scormcloud_upgrade
  *
@@ -46,10 +49,37 @@ defined('MOODLE_INTERNAL') || die();
  * @return bool
  */
 function xmldb_scormcloud_upgrade($oldversion) {
-
     global $DB;
+    global $CFG;
 
     $dbman = $DB->get_manager();
+    
+    $module = new stdClass();
+    require($CFG->dirroot . '/mod/scormcloud/version.php');
+    
+    $result = true;
+    
+    if ($result && $oldversion < 2011100700) {
+        $table = new xmldb_table(SCORMCLOUD_TABLE);
+        $field = new xmldb_field('cloudid', XMLDB_TYPE_CHAR, '255', null, 'XMLDB_NULL', null, null, 'id');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $rs = $DB->get_recordset(SCORMCLOUD_TABLE);
+        foreach ($rs as $record) {
+            if (!isset($record->cloudid) || empty($record->cloudid)) {
+                $record->cloudid = $record->id;
+                $DB->update_record(SCORMCLOUD_TABLE, $record, true);
+            }
+        }
+        $rs->close();
+        
+        $field->setNotNull();
+        $dbman->change_field_notnull($table, $field);
+    }
+    
+    upgrade_mod_savepoint($result, $module->version, 'scormcloud');
 
-    return true;
+    return $result;
 }

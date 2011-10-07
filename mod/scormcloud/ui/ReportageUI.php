@@ -43,7 +43,7 @@ class ReportageUI
 		$this->_userSummarySettings->setEmbedded(true);
 		$this->_userSummarySettings->setVertical(false);
 		$this->_userSummarySettings->setDivname('UserSummary');
-		$this->_userSummarySettings->setCourseId($scormcloud->id);
+		$this->_userSummarySettings->setCourseId($scormcloud->cloudid);
 		$this->_userSummarySettings->setLearnerId($user->username);
 
 		$this->_userActivitiesSettings = new WidgetSettings();
@@ -51,7 +51,7 @@ class ReportageUI
 		$this->_userActivitiesSettings->setScriptBased(true);
 		$this->_userActivitiesSettings->setEmbedded(true);
 		$this->_userActivitiesSettings->setDivname('UserActivities');
-		$this->_userActivitiesSettings->setCourseId($scormcloud->id);
+		$this->_userActivitiesSettings->setCourseId($scormcloud->cloudid);
 		$this->_userActivitiesSettings->setLearnerId($user->username);
 
 		$this->_courseSummarySettings = new WidgetSettings();
@@ -59,7 +59,7 @@ class ReportageUI
 		$this->_courseSummarySettings->setScriptBased(true);
 		$this->_courseSummarySettings->setEmbedded(true);
 		$this->_courseSummarySettings->setVertical(true);
-		$this->_courseSummarySettings->setCourseId($scormcloud->id);
+		$this->_courseSummarySettings->setCourseId($scormcloud->cloudid);
 		$this->_courseSummarySettings->setDivname('CourseSummary');
 
 		$this->_courseListSettings = new WidgetSettings();
@@ -68,7 +68,7 @@ class ReportageUI
 		$this->_courseListSettings->setEmbedded(true);
 		$this->_courseListSettings->setExpand(true);
 		$this->_courseListSettings->setDivname('CourseListData');
-		$this->_courseListSettings->setCourseId($scormcloud->id);
+		$this->_courseListSettings->setCourseId($scormcloud->cloudid);
 
 		$this->_learnerListSettings = new WidgetSettings();
 		$this->_learnerListSettings->setShowTitle(true);
@@ -76,7 +76,7 @@ class ReportageUI
 		$this->_learnerListSettings->setEmbedded(true);
 		$this->_learnerListSettings->setExpand(false);
 		$this->_learnerListSettings->setDivname('LearnersListData');
-		$this->_learnerListSettings->setCourseId($scormcloud->id);	
+		$this->_learnerListSettings->setCourseId($scormcloud->cloudid);	
 	}
 	
 	public function getUserSummaryUrl()

@@ -105,7 +105,7 @@ function scormcloud_course_format_display($user, $course)
 
 		$reportageui = new ReportageUI($rptService, $rptAuth, $scormcloud, $user);
 
-		if ($courseExists = scormcloud_course_exists_on_cloud($scormcloud->id)) {
+		if ($courseExists = scormcloud_course_exists_on_cloud($scormcloud->cloudid)) {
 			$containerContext = (object)array('scormcloud' => $scormcloud,
 									'course' => $course,
 									'user' => $user,
