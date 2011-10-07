@@ -50,6 +50,9 @@ $string['secretkey_desc'] = 'Enter the Secret Key provided for your account.';
 $string['explaingeneralconfig'] = 'Enter your SCORM Cloud Engine API information below.<br>If you dont have a key yet, click <a href="https://cloud.scorm.com/sc/guest/SignUpForm" target="_blank">here</a> to sign up and receive your appid and secret key via email.';
 $string['generalconfig'] = 'SCORM Cloud API Configuration';
 
+$string['coursemissing'] = 'This course appears to be missing from the SCORM Cloud.';
+$string['coursemissing_admin'] = '<p>This course appears to be missing from the SCORM Cloud. This can happen if you delete it from your Course Library in your SCORM Cloud account or if you change the AppID settings your SCORM Cloud plugin settings in your Moodle administration section.</p><p>Update this SCORM Cloud Course and upload a new package to fix this, or simply remove the activity.</p>';
+
 $string['launchmessage'] = 'Your course is being launched in a new window. This window will automatically close once you exit the course.';
 
 $string['estimatedduration'] = "Estimated Duration";

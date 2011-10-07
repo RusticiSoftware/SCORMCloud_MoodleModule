@@ -131,16 +131,11 @@ function scormcloud_course_format_display($user, $course)
 				print_reportage_container($reportageui);
 			}
 		} else {
+		    echo '<br><br><br>';
 			if (has_capability('moodle/course:manageactivities', $context)) {
-				echo '<br><br><br>';
-				echo '<table style="width:100%">';
-				echo '<tr><td style="text-align:center">';
-
-				echo '</td></tr>';
-				echo '<tr><td style="text-align:center">';
-				echo '<div id="UploadFrame"><iframe width="100%" height="500px" style="border:0;" src="' . $CFG->wwwroot . '/mod/scormcloud/uploadpif.php?id=' . $scormcloud->course . '|'.$scormcloud->id.'&mode=new" id="ifmImport" /></div>';
-				echo '</td></tr>';
-				echo '</table>';
+                print_message_container(get_string('coursemissing_admin', 'scormcloud'));
+			} else {
+                print_message_container(get_string('coursemissing', 'scormcloud'));
 			}
 		}
 	} else {
@@ -469,4 +464,17 @@ function print_reportage_container($reportageui)
 	$headertext .= '</script>';
 
 	print_container($headertext, false, 'scormcloud-container');
+}
+
+function print_message_container($message) {
+    global $CFG;
+    
+    $html  = '<div style="width: 600px; margin-left: auto; margin-right: auto;>';
+    $html .= '<div style="width: 120px; float: left;"><img src="' . $CFG->wwwroot . '/mod/scormcloud/images/icon_cloud.jpg" style="margin-top: 40px;" /></div>';
+    $html .= '<div style="width: 479px; float: right;">'; 
+    $html .= '<h3>SCORM Cloud Plugin</h3>';
+    $html .= '<div>'. $message . '</div>';
+    $html .= '</div></div>';
+    
+    print_container($html, false, 'scormcloud-container');
 }
