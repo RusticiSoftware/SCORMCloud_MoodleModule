@@ -36,6 +36,7 @@ $string['scormcloud'] = 'SCORM Cloud';
 $string['modulename'] = 'SCORM Cloud Course';
 $string['modulenameplural'] = 'SCORM Cloud Courses';
 $string['pluginname'] = 'SCORM Cloud';
+$string['pluginadministration'] = 'SCORM Cloud Administration';
 $string['scormcloudfieldset'] = 'Custom example fieldset';
 $string['scormcloudintro'] = 'scormcloud Intro';
 $string['scormcloudname'] = 'SCORM Package Name';

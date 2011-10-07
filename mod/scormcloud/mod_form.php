@@ -44,7 +44,7 @@ class mod_scormcloud_mod_form extends moodleform_mod {
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
         $mform->addElement('filepicker', 'packagefile', get_string('uploadpackage', 'scormcloud'), null, array('accepted_types' => '*.zip'));
-        $mform->addElement('static', 'uploadinfo', null, get_string('uploadinfo'));
+        $mform->addElement('static', 'uploadinfo', null, get_string('uploadinfo', 'scormcloud'));
 
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();

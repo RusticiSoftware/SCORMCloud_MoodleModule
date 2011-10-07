@@ -99,8 +99,8 @@ function scormcloud_add_instance($scormcloud, $mform=null) {
 function scormcloud_update_instance($scormcloud, $mform=null) {
     global $DB;
 
+    $scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $scormcloud->instance));
     $scormcloud->timemodified = time();
-    $scormcloud->id = $scormcloud->instance;
     
     if ($mform) {
         $packagefile = $mform->save_temp_file('packagefile');
