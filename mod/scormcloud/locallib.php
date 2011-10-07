@@ -94,6 +94,8 @@ function scormcloud_course_format_display($user, $course)
 	echo "src=\"http://cloud.scorm.com/Reportage/scripts/reportage.combined.nojquery.js\"></script>\n";
 	echo '<link rel="stylesheet" ';
 	echo "href=\"{$CFG->wwwroot}/mod/scormcloud/css/reportage.combined.css\" type=\"text/css\" media=\"screen\" />\n";
+	echo '<link rel="stylesheet" ';
+	echo "href=\"{$CFG->wwwroot}/mod/scormcloud/css/scormcloud.css\" type=\"text/css\" media=\"screen\" />\n";
 
 	if ($scormclouds = get_all_instances_in_course('scormcloud', $course)) {
 		$scormcloud = get_scormcloud_instance($course);
@@ -199,13 +201,8 @@ function scormcloud_course_exists_on_cloud($courseid)
 }
 
 function scormcloud_get_coursemodule($id) {
-    if (empty($id)) {
-        $id = optional_param('id', 0, PARAM_INT);
-    }
-    
-    if (!empty($id)) {
-        return get_coursemodule_from_id('scormcloud', $id, 0, false, MUST_EXIST);
-    }
+    $cms = get_coursemodules_in_course('scormcloud', $id);
+    return current($cms);
 }
 
 function scormcloud_hascapabilitytoviewcourse($id) {
@@ -214,12 +211,12 @@ function scormcloud_hascapabilitytoviewcourse($id) {
 }
 
 function scormcloud_hascapabilitytolaunch($id) {
-    $context = get_context_instance(CONTEXT_MODULE, scormcloud_get_coursemodule($id));
+    $context = get_context_instance(CONTEXT_MODULE, scormcloud_get_coursemodule($id)->id);
     return has_capability('mod/scormcloud:launch', $context);
 }
 
 function scormcloud_hascapabilitytomanage($id) {
-    $context = get_context_instance(CONTEXT_MODULE, scormcloud_get_coursemodule($id));
+    $context = get_context_instance(CONTEXT_MODULE, scormcloud_get_coursemodule($id)->id);
     return has_capability('mod/scormcloud:manage', $context);
 }
 
@@ -336,8 +333,7 @@ function print_menu_container($containerContext)
 {
 	global $CFG;
 
-	$headertext  = '<hr style="width:98%" />';
-	$headertext .= '<div style="font-size:medium"><table style="width:98%; margin-bottom: 0;"><tr><td>';
+	$headertext = '<div style="font-size:medium; border: 1px solid #DDDDDD;"><table style="width:100%; margin-bottom: 0;"><tr><td>';
 	$headertext .= '&nbsp;&nbsp;<a class="thickbox" href="'.$CFG->wwwroot . '/mod/scormcloud/launch.php?courseid='.$containerContext->scormcloud->id.'&userid='.$containerContext->user->id.'&TB_iframe=true" target="_blank" >Launch Course</a>';
 	$headertext .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 	$headertext .= '<a class="thickbox" href="'.$CFG->wwwroot . '/mod/scormcloud/launch.php?mode=preview&courseid='.$containerContext->scormcloud->id.'&userid='.$containerContext->user->id.'&TB_iframe=true" target="_blank" >Preview Course</a>';
@@ -345,11 +341,8 @@ function print_menu_container($containerContext)
 	if (has_capability('moodle/course:manageactivities', $containerContext->context)) // Only show if the user is an admin
 	{
 		$headertext .= '<a class="thickbox" href="'.$CFG->wwwroot.'/mod/scormcloud/packageprops.php?id='.$containerContext->scormcloud->id.'&TB_iframe=true&height=500&width=700" id="lnkPackageProperties">Package Properties</a>';
-		$headertext .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-		$headertext .= '<a class="thickbox" href="'.$CFG->wwwroot.'/mod/scormcloud/uploadpif.php?id='.$containerContext->scormcloud->course.'|'.$containerContext->scormcloud->id.'&mode=update&TB_iframe=true">Update Package</a>';
 	}
 	$headertext .= '</td></tr></table></div>';
-	$headertext .= '<hr style="width:98%"/><br/>';
 
 	print_container($headertext, false, 'scormcloud-container');
 }
@@ -408,19 +401,19 @@ function print_registration_container($reg)
 function print_currentstatus_container($course, $registration, $reportageui)
 {
 	if ($registration == null) {
-		$html = '<div class="content" style="font-size: medium;">' . format_string($course->summary) . '</div>';
+		$html = '<div class="content" style="font-size: medium; border: 1px solid #DDDDDD;">' . format_string($course->summary);
 		$html .= '<table><tr>';
 		$html .= '<td><h1 style="font-size: xx-large;">You have not yet started this course</h3></td>';
-		$html .= '</tr></table>';
+		$html .= '</tr></table></div>';
 		print_container($html, false, 'scormcloud-container');
 		return;
 	}
 	
-	$headertext = '<div class="content" style="font-size: medium;">' . format_string($course->summary) . '</div>';
+	$headertext = '<div class="content" style="font-size: medium; border: 1px solid #DDDDDD;">' . format_string($course->summary);
 	$headertext .= '<table><tr>';
 	$headertext .= '<td><h1 style="font-size: xx-large;">Your Current Status</h3>' . print_registration_container($registration) . '</td>';
 	$headertext .= '<td style="padding-left: 40px;"><div id="UserActivities" style="border:1px #CCCCCC solid;padding:10px 10px 10px 10px">Loading Your Activities...</div></td>';
-	$headertext .= '</tr></table>';
+	$headertext .= '</tr></table></div>';
 
 	$headertext .= '<script type="text/javascript">';
 	$headertext .= '$(document).ready(function(){';
@@ -436,7 +429,8 @@ function print_reportage_container($reportageui)
 {
 	global $CFG;
 
-	$headertext  = '<hr /><br><fieldset style="padding:10px 10px 10px 10px">';
+	$headertext  = '<div style="border: 1px solid #DDDDDD;">';
+	$headertext .= '<fieldset style="padding:10px 10px 10px 10px">';
 	$headertext .= '<legend style="font-size:xx-large;margin:5px 5px 5px 5px;">';
 	$headertext .= '&nbsp;&nbsp;<img src="'.$CFG->wwwroot.'/mod/scormcloud/icon.gif" />';
 	$headertext .= '&nbsp;&nbsp;Course Analytics&nbsp;&nbsp;</legend>';
@@ -453,7 +447,7 @@ function print_reportage_container($reportageui)
 	//All Learners Detail Widget
 	$headertext .= '<div id="LearnersListDiv" style="border:1px #CCCCCC solid;padding:10px 10px 10px 10px;width:450px;">';
 	$headertext .= '<div id="LearnersListData">Loading All Learners...</div>';
-	$headertext .= '</td></tr></table></fieldset>';
+	$headertext .= '</td></tr></table></fieldset></div>';
 	//Load 'em Up...
 	$headertext .= '<script type="text/javascript">';
 	$headertext .= '$(document).ready(function(){';
@@ -477,4 +471,27 @@ function print_message_container($message) {
     $html .= '</div></div>';
     
     print_container($html, false, 'scormcloud-container');
+}
+
+// Generates a v4 (random) UUID
+function scormcloud_gen_uuid() {
+    return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        // 32 bits for "time_low"
+        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+
+        // 16 bits for "time_mid"
+        mt_rand( 0, 0xffff ),
+
+        // 16 bits for "time_hi_and_version",
+        // four most significant bits holds version number 4
+        mt_rand( 0, 0x0fff ) | 0x4000,
+
+        // 16 bits, 8 bits for "clk_seq_hi_res",
+        // 8 bits for "clk_seq_low",
+        // two most significant bits holds zero and one for variant DCE1.1
+        mt_rand( 0, 0x3fff ) | 0x8000,
+
+        // 48 bits for "node"
+        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+    );
 }

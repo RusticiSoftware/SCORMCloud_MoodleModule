@@ -25,9 +25,11 @@ require_once("../../config.php");
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
 require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
 require_once('SCORMCloud_PHPLibrary/CourseData.php');
+require_once('constants.php');
 require_once('locallib.php');
 
 global $CFG;
+global $DB;
 
 $courseid = required_param('id', PARAM_INT);   // course id
 
@@ -40,6 +42,8 @@ $ScormService = scormcloud_get_service();
 $courseService = $ScormService->getCourseService();
 $cssurl = $CFG->wwwroot . '/mod/scormcloud/packageprops.css';
 
-echo '<script language="javascript">window.location.href = "'.$courseService->GetPropertyEditorUrl($courseid, $cssurl, null).'";</script>';
+$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $courseid));
+
+echo '<script language="javascript">window.location.href = "'.$courseService->GetPropertyEditorUrl($scormcloud->cloudid, $cssurl, null).'";</script>';
 
 ?>

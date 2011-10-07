@@ -24,6 +24,7 @@
  */
 
 require_once("../../config.php");
+require_once('constants.php');
 require_once("locallib.php");
 require_once("lib.php");
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
@@ -47,11 +48,13 @@ if (!scormcloud_hascapabilitytolaunch($courseid) || !scormcloud_hascapabilitytov
 $ScormService = scormcloud_get_service();
 $regService = $ScormService->getRegistrationService();
 
+$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $courseid));
+
 $log->logDebug('Checking for Moodle registration.');
 // Check to see if there is an initial registration
 if (!$regs = $DB->get_records_select('scormcloud_registrations','userid='.$userid.' AND scormcloudid='.$courseid)) {
 	$log->logInfo("Registration does not exist in Moodle for course $courseid and user $userid; creating.");
-	
+
 	$regid = md5(uniqid());
 	$reg = array();
 	$reg['scormcloudid'] = $courseid;
@@ -68,7 +71,7 @@ if (!$regs = $DB->get_records_select('scormcloud_registrations','userid='.$useri
 	$learnerFirstName = $user->firstname ;
 	$learnerLastName = $user->lastname ;
 	
-	$regService->CreateRegistration($regid, $courseid, $learnerId, $learnerFirstName, $learnerLastName);
+	$regService->CreateRegistration($regid, $scormcloud->cloudid, $learnerId, $learnerFirstName, $learnerLastName);
 	$log->logInfo("Cloud registration created for Moodle registration $regid.");
 } else {
 	$regid = current($regs)->regid;
@@ -80,7 +83,7 @@ echo get_string("launchmessage","scormcloud");
 $url = '';
 if ($mode == 'preview') {
 	$courseService = $ScormService->getCourseService();
-	$url = $courseService->GetPreviewUrl($courseid, $CFG->wwwroot . '/mod/scormcloud/courseexit.php');
+	$url = $courseService->GetPreviewUrl($scormcloud->cloudid, $CFG->wwwroot . '/mod/scormcloud/courseexit.php');
 } else {
 	$url = $regService->GetLaunchUrl($regid, $CFG->wwwroot . '/mod/scormcloud/courseexit.php?id=' . $regid);
 }

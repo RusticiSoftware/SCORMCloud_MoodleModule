@@ -39,6 +39,8 @@ $string['pluginname'] = 'SCORM Cloud';
 $string['scormcloudfieldset'] = 'Custom example fieldset';
 $string['scormcloudintro'] = 'scormcloud Intro';
 $string['scormcloudname'] = 'SCORM Package Name';
+$string['uploadpackage'] = 'SCORM Package File';
+$string['uploadinfo'] = 'Select the SCORM package to upload to the SCORM Cloud. After you click Save, it will be uploaded to the Cloud and the Moodle activity title will be inferred from the package manifest.';
 
 $string['serviceurl'] = 'SCORM Cloud Service Url';
 $string['serviceurl_desc'] = 'Enter the SCORM Cloud Service Url provided for your account.';
@@ -56,6 +58,8 @@ $string['coursemissing_admin'] = '<p>This course appears to be missing from the 
 $string['launchmessage'] = 'Your course is being launched in a new window. This window will automatically close once you exit the course.';
 
 $string['estimatedduration'] = "Estimated Duration";
+
+$string['import error'] = 'There was a problem uploading and importing your course to the SCORM Cloud: $a';
 
 $string['noregmessage'] = 'You have not attempted this course yet.<br/> Click <strong>Launch Course</strong> above to begin.';
 

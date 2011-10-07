@@ -55,10 +55,35 @@ function scormcloud_supports($feature) {
  * @param object $scormcloud An object from the form in mod_form.php
  * @return int The id of the newly inserted scormcloud record
  */
-function scormcloud_add_instance($scormcloud) {
+function scormcloud_add_instance($scormcloud, $mform=null) {
     global $DB;
 
     $scormcloud->timecreated = time();
+    
+    $cmid = $scormcloud->coursemodule;
+    $context = get_context_instance(CONTEXT_MODULE, $cmid);
+    
+    if ($mform) {
+        $packagefile = $mform->save_temp_file('packagefile');
+        if ($packagefile !== false) {
+            require_once('locallib.php');
+            $cloud = scormcloud_get_service();
+            $course_service = $cloud->getCourseService();
+            
+            $courseid = scormcloud_gen_uuid();
+            $scormcloud->cloudid = $courseid;
+            
+            $results = $course_service->ImportCourse($courseid, $packagefile);
+            unlink($packagefile);
+            
+            $result = current($results);
+            if (!$result->getWasSuccessful()) {
+                print_error('import error', 'scormcloud', $result->getMessage());
+            }
+            
+            $scormcloud->name = $result->getTitle();
+        }
+    }
 
     return $DB->insert_record(SCORMCLOUD_TABLE, $scormcloud);
 }
@@ -71,11 +96,33 @@ function scormcloud_add_instance($scormcloud) {
  * @param object $scormcloud An object from the form in mod_form.php
  * @return boolean Success/Fail
  */
-function scormcloud_update_instance($scormcloud) {
+function scormcloud_update_instance($scormcloud, $mform=null) {
     global $DB;
 
     $scormcloud->timemodified = time();
     $scormcloud->id = $scormcloud->instance;
+    
+    if ($mform) {
+        $packagefile = $mform->save_temp_file('packagefile');
+        if ($packagefile !== false) {
+            require_once('locallib.php');
+            $cloud = scormcloud_get_service();
+            $course_service = $cloud->getCourseService();
+            
+            $courseid = $scormcloud->cloudid;
+            
+            // PHP lib is somewhat out-of-sync with Cloud API. versionCourse no longer exists, use ImportCourse instead which auto-versions. 
+            $results = $course_service->ImportCourse($courseid, $packagefile);
+            unlink($packagefile);
+            
+            $result = current($results);
+            if (!$result->getWasSuccessful()) {
+                print_error('import error', 'scormcloud', $result->getMessage());
+            }
+            
+            $scormcloud->name = $result->getTitle();
+        }
+    }
     
     return $DB->update_record(SCORMCLOUD_TABLE, $scormcloud);
 }
