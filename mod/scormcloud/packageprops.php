@@ -42,7 +42,9 @@ $ScormService = scormcloud_get_service();
 $courseService = $ScormService->getCourseService();
 $cssurl = $CFG->wwwroot . '/mod/scormcloud/packageprops.css';
 
-$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $courseid));
+$cm = scormcloud_get_coursemodule($courseid);
+$cmid = $cm->instance;
+$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $cmid));
 
 echo '<script language="javascript">window.location.href = "'.$courseService->GetPropertyEditorUrl($scormcloud->cloudid, $cssurl, null).'";</script>';
 

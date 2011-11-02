@@ -48,16 +48,18 @@ if (!scormcloud_hascapabilitytolaunch($courseid)) {
 $ScormService = scormcloud_get_service();
 $regService = $ScormService->getRegistrationService();
 
-$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $courseid));
+$cm = scormcloud_get_coursemodule($courseid);
+$cmid = $cm->instance;
+$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $cmid));
 
 $log->logDebug('Checking for Moodle registration.');
 // Check to see if there is an initial registration
-if (!$regs = $DB->get_records_select('scormcloud_registrations','userid='.$userid.' AND scormcloudid='.$courseid)) {
+if (!$regs = $DB->get_records_select('scormcloud_registrations','userid='.$userid.' AND scormcloudid='.$cmid)) {
 	$log->logInfo("Registration does not exist in Moodle for course $courseid and user $userid; creating.");
 
 	$regid = md5(uniqid());
 	$reg = array();
-	$reg['scormcloudid'] = $courseid;
+	$reg['scormcloudid'] = $cmid;
 	$reg['userid'] = $userid;
 	$reg['regid'] = $regid;
 	$reg['lastaccess'] = time();
