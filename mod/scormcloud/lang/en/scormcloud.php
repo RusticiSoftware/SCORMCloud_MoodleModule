@@ -76,3 +76,5 @@ $string['passed'] = 'passed';
 $string['failed'] = 'failed';
 $string['unknown'] = 'unknown';
 
+$string['scormcloud:launch'] = 'Launch SCORM Cloud courses';
+$string['scormcloud:manage'] = 'Manage SCORM Cloud courses';
