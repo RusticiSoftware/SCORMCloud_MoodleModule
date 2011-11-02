@@ -432,7 +432,7 @@ function print_reportage_container($reportageui)
 	$headertext  = '<div style="border: 1px solid #DDDDDD;">';
 	$headertext .= '<fieldset style="padding:10px 10px 10px 10px">';
 	$headertext .= '<legend style="font-size:xx-large;margin:5px 5px 5px 5px;">';
-	$headertext .= '&nbsp;&nbsp;<img src="'.$CFG->wwwroot.'/mod/scormcloud/icon.gif" />';
+	$headertext .= '&nbsp;&nbsp;<img src="'.$CFG->wwwroot.'/mod/scormcloud/pix/icon.gif" />';
 	$headertext .= '&nbsp;&nbsp;Course Analytics&nbsp;&nbsp;</legend>';
 	$headertext .= '<table style="width:90%"><tr style="padding-bottom:10px;"><td colspan="2">';
 	$headertext .= '<div id="CourseSummary" style="width:500px;">Loading Summary...</div>';
