@@ -41,7 +41,7 @@ $userid = $USER->id;
 $regid = '';
 
 require_login($courseid);
-if (!scormcloud_hascapabilitytolaunch($courseid) || !scormcloud_hascapabilitytoviewcourse($courseid)) {
+if (!scormcloud_hascapabilitytolaunch($courseid)) {
     error("You do not have permission to launch this course.");
 }
 
