@@ -25,7 +25,7 @@
 
 $report_scormcloud_capabilities = array(
 
-    'report/courseoverview:view' => array(
+    'report/scormcloud:view' => array(
         'riskbitmask' => RISK_PERSONAL,
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
