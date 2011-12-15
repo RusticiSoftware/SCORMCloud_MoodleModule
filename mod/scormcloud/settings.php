@@ -25,7 +25,7 @@ $settings->add(new admin_setting_heading('scormcloud_method_heading', get_string
                    get_string('explaingeneralconfig', 'scormcloud'), 'Missing Text'));
 
 $settings->add(new admin_setting_configtext('scormcloud_serviceurl', get_string('serviceurl', 'scormcloud'),
-                   get_string('serviceurl_desc', 'scormcloud'), null));
+                   get_string('serviceurl_desc', 'scormcloud'), 'http://cloud.scorm.com/EngineWebServices/'));
 
 $settings->add(new admin_setting_configtext('scormcloud_appid', get_string('appid', 'scormcloud'),
                    get_string('appid_desc', 'scormcloud'), null));
