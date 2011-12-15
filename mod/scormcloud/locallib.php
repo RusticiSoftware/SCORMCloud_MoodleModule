@@ -334,13 +334,13 @@ function print_menu_container($containerContext)
 	global $CFG;
 
 	$headertext = '<div style="font-size:medium; border: 1px solid #DDDDDD;"><table style="width:100%; margin-bottom: 0;"><tr><td>';
-	$headertext .= '&nbsp;&nbsp;<a class="thickbox" href="'.$CFG->wwwroot . '/mod/scormcloud/launch.php?courseid='.$containerContext->scormcloud->course.'&userid='.$containerContext->user->id.'&TB_iframe=true" target="_blank" >Launch Course</a>';
+	$headertext .= '&nbsp;&nbsp;<a class="thickbox" href="'.$CFG->wwwroot . '/mod/scormcloud/launch.php?courseid='.$containerContext->scormcloud->id.'&userid='.$containerContext->user->id.'&TB_iframe=true" target="_blank" >Launch Course</a>';
 	$headertext .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-	$headertext .= '<a class="thickbox" href="'.$CFG->wwwroot . '/mod/scormcloud/launch.php?mode=preview&courseid='.$containerContext->scormcloud->course.'&userid='.$containerContext->user->id.'&TB_iframe=true" target="_blank" >Preview Course</a>';
+	$headertext .= '<a class="thickbox" href="'.$CFG->wwwroot . '/mod/scormcloud/launch.php?mode=preview&courseid='.$containerContext->scormcloud->id.'&userid='.$containerContext->user->id.'&TB_iframe=true" target="_blank" >Preview Course</a>';
 	$headertext .= '</td><td style="text-align:right">';
 	if (has_capability('moodle/course:manageactivities', $containerContext->context)) // Only show if the user is an admin
 	{
-		$headertext .= '<a class="thickbox" href="'.$CFG->wwwroot.'/mod/scormcloud/packageprops.php?id='.$containerContext->scormcloud->course.'&TB_iframe=true&height=500&width=700" id="lnkPackageProperties">Package Properties</a>';
+		$headertext .= '<a class="thickbox" href="'.$CFG->wwwroot.'/mod/scormcloud/packageprops.php?id='.$containerContext->scormcloud->id.'&TB_iframe=true&height=500&width=700" id="lnkPackageProperties">Package Properties</a>';
 	}
 	$headertext .= '</td></tr></table></div>';
 

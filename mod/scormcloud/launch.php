@@ -40,26 +40,24 @@ $mode = optional_param('mode', 'launch', PARAM_ALPHA);
 $userid = $USER->id;
 $regid = '';
 
-require_login($courseid);
-if (!scormcloud_hascapabilitytolaunch($courseid)) {
+$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $courseid));
+
+require_login($scormcloud->course);
+if (!scormcloud_hascapabilitytolaunch($scormcloud->course)) {
     error("You do not have permission to launch this course.");
 }
 
 $ScormService = scormcloud_get_service();
 $regService = $ScormService->getRegistrationService();
 
-$cm = scormcloud_get_coursemodule($courseid);
-$cmid = $cm->instance;
-$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $cmid));
-
 $log->logDebug('Checking for Moodle registration.');
 // Check to see if there is an initial registration
-if (!$regs = $DB->get_records_select('scormcloud_registrations','userid='.$userid.' AND scormcloudid='.$cmid)) {
+if (!$regs = $DB->get_records_select('scormcloud_registrations','userid='.$userid.' AND scormcloudid='.$courseid)) {
 	$log->logInfo("Registration does not exist in Moodle for course $courseid and user $userid; creating.");
 
 	$regid = md5(uniqid());
 	$reg = array();
-	$reg['scormcloudid'] = $cmid;
+	$reg['scormcloudid'] = $courseid;
 	$reg['userid'] = $userid;
 	$reg['regid'] = $regid;
 	$reg['lastaccess'] = time();

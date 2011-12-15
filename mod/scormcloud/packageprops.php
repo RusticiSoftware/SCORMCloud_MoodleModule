@@ -33,18 +33,16 @@ global $DB;
 
 $courseid = required_param('id', PARAM_INT);   // course id
 
-require_login($courseid);
-if (!scormcloud_hascapabilitytomanage($courseid)) {
-    redirect($CFG->wwwroot . '/course/view.php?id=' . $courseid);
+$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $courseid));
+
+require_login($scormcloud->course);
+if (!scormcloud_hascapabilitytolaunch($scormcloud->course)) {
+    error("You do not have permission to launch this course.");
 }
 
 $ScormService = scormcloud_get_service();
 $courseService = $ScormService->getCourseService();
 $cssurl = $CFG->wwwroot . '/mod/scormcloud/packageprops.css';
-
-$cm = scormcloud_get_coursemodule($courseid);
-$cmid = $cm->instance;
-$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $cmid));
 
 echo '<script language="javascript">window.location.href = "'.$courseService->GetPropertyEditorUrl($scormcloud->cloudid, $cssurl, null).'";</script>';
 
