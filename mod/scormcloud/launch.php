@@ -72,7 +72,7 @@ global $CFG;
 			$reg['scormcloudid'] = $courseid;
 			$reg['userid'] = $userid;
 			$reg['regid'] = $regid;
-			$reg['lastaccess'] = date();
+			$reg['lastaccess'] = time();
 			
 			//insert the first registration
 			insert_record('scormcloud_registrations', $reg, $returnid=true, $primarykey='id') ;
