@@ -81,7 +81,7 @@ function scormcloud_course_format_display($user,$course) {
 		if($rptAuth!="false")
 		{
 
-		$dateOptions = new DateRangeSettings($dateRangeType,$dateRangeStart,$dateRangeEnd,$dateCriteria);
+		$dateOptions = new DateRangeSettings(null,null,null,null);
 
 		$usumWidgetSettings = new WidgetSettings();
 		$usumWidgetSettings->setShowTitle(false);

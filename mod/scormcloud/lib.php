@@ -1,4 +1,4 @@
-<?php  // $Id: lib.php,v 1.8 2007/12/12 00:09:46 stronk7 Exp $
+<?php
 /**
  * Library of functions and constants for module rusticiscormengine
  * This file should have two well differenced parts:
@@ -18,7 +18,6 @@
 
 //define("RUSTICI_PATH_TO_LOGS","logs/moodlenet.log");  
 
-require_once($CFG->dirroot.'/config.php');
 require_once($CFG->dirroot.'/lib/accesslib.php');
 require_once('SCORMAPI/ScormEngineService.php');
 require_once('SCORMAPI/ServiceRequest.php');
@@ -251,7 +250,7 @@ function scormcloud_reset_userdata($data) {
 function scormcloud_write_log($message) {
     global $CFG;
 	
-	$fh = fopen('scormcloud_mod.log', 'a');
+	$fh = fopen($CFG->dataroot.'scormcloud_mod.log', 'a');
 	
 	fwrite($fh, '['.date("D dS M,Y h:i a").'] - '.$message."\n");
 	

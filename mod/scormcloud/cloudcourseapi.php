@@ -28,36 +28,19 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-?>
-<?php
-
 require_once("../../config.php");
 require_once('SCORMAPI/ScormEngineService.php');
 require_once('SCORMAPI/ServiceRequest.php');
 require_once('SCORMAPI/CourseData.php');
 
 
-global $CFG;
-
-$action = $_GET['action'];
-$courseid = $_GET['courseid'];
+$action = optional_param('action', '', PARAM_ALPHA);
+$courseid = required_param('courseid', PARAM_INT);
+require_login($courseid);
 
 //is current user an admin?
-$isAdmin = false;
-if(user_has_role_assignment($USER->id,1))
-{
-   	$isAdmin = true;
-}
-if(user_has_role_assignment($USER->id,2))
-{
-   	$isAdmin = true;
-}
-if(user_has_role_assignment($USER->id,3))
-{
-   	$isAdmin = true;
-}
-
-if ($isAdmin) {
+$coursecontext = get_context_instance(CONTEXT_COURSE, $courseid);
+if (has_capability('moodle/course:manageactivities', $coursecontext )) {
 
 	$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
 	

@@ -45,7 +45,12 @@
 
 	$id = required_param('id', PARAM_RAW);
 	$mode = optional_param('mode', PARAM_RAW);
-	
+    $ids = explode('|',$id);
+    $courseId = $ids[0];
+    $scormcloudid = $ids[1];
+    require_login($courseId);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $courseId);
+    require_capability('moodle/course:manageactivities', $coursecontext);
 
 if ($_FILES["file"]["error"] > 0)
   {
@@ -59,9 +64,7 @@ else
 	$courseService = $ScormService->getCourseService();
 	$uploadService = $ScormService->getUploadService();
 	
-	$ids = explode('|',$id);
-	$courseId = $ids[0];
-	$scormcloudid = $ids[1];
+
 
 		$target_path = $_FILES["file"]["tmp_name"] . '.zip'; 
 		//echo $target_path;
@@ -84,7 +87,7 @@ else
 			$scormcloud = array('id' => $scormcloudid,
 							 'course' => $courseId,
 							 'name' => $importResult->getTitle(),
-							 'timecreated' => date(),
+							 'timecreated' => time(),
 							 'scoreformat' => '0');
 			scormcloud_update_instance($scormcloud);
 			
@@ -98,7 +101,7 @@ else
 			$scormcloud = array('id' => $scormcloudid,
 							 'course' => $courseId,
 							 'name' => $importResult->getTitle(),
-							 'timecreated' => date(),
+							 'timecreated' => time(),
 							 'scoreformat' => '0');
 			scormcloud_update_instance($scormcloud);
 			scormcloud_write_log('scormcloud_mod import complete');

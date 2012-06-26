@@ -43,12 +43,8 @@ require_once('SCORMAPI/CourseData.php');
 
 global $CFG;
 
-//get the courseid and userid
-
-//require login on this page
-
 	$courseid = required_param('courseid', PARAM_INT);
-	$userid = required_param('userid', PARAM_INT);
+    require_login($courseid);
 	
     $ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
     error_log('creating registration cloud service');

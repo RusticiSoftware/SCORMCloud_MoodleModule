@@ -32,8 +32,6 @@
 <?php
 
 require_once('../../config.php');
-global $CFG;
-
 require_once("lib.php");
 require_once('locallib.php');
 
@@ -44,6 +42,7 @@ require_once('SCORMAPI/ServiceRequest.php');
 require_once('SCORMAPI/ReportingService.php');
 
 $courseid = required_param('courseid', PARAM_RAW);
+require_login($courseid);
 
 $ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
 $rptService = $ScormService->getReportingService();
