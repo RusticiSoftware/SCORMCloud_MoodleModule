@@ -41,7 +41,7 @@ require_once('SCORMAPI/ServiceRequest.php');
 require_once('SCORMAPI/CourseData.php');
 
     $courseid = required_param('courseid', PARAM_INT);
-    require_login($courseid);
+    require_login();
 
     $userid = $USER->id;
 

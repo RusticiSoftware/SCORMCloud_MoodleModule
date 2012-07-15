@@ -42,7 +42,7 @@ require_once('SCORMAPI/ServiceRequest.php');
 require_once('SCORMAPI/ReportingService.php');
 
 $courseid = required_param('courseid', PARAM_RAW);
-require_login($courseid);
+require_login();
 
 $ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
 $rptService = $ScormService->getReportingService();

@@ -36,10 +36,10 @@ require_once('SCORMAPI/CourseData.php');
 
 $action = optional_param('action', '', PARAM_ALPHA);
 $courseid = required_param('courseid', PARAM_INT);
-require_login($courseid);
+require_login();
 
 //is current user an admin?
-$coursecontext = get_context_instance(CONTEXT_COURSE, $courseid);
+$coursecontext = get_context_instance(CONTEXT_COURSE, SITEID); //TODO. change to real courseid.
 if (has_capability('moodle/course:manageactivities', $coursecontext )) {
 
 	$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);

@@ -48,8 +48,8 @@
     $ids = explode('|',$id);
     $courseId = $ids[0];
     $scormcloudid = $ids[1];
-    require_login($courseId);
-    $coursecontext = get_context_instance(CONTEXT_COURSE, $courseId);
+    require_login();
+    $coursecontext = get_context_instance(CONTEXT_COURSE, SITEID); //TODO. change to real courseid.
     require_capability('moodle/course:manageactivities', $coursecontext);
 
 if ($_FILES["file"]["error"] > 0)
