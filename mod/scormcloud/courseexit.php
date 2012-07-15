@@ -104,7 +104,9 @@ if($regid != null){
 				$reg->satisfaction = $success;
 			
 				$reg->totaltime = $results->registrationreport->totaltime;
-				$reg->score = $results->registrationreport->score;
+                if (is_numeric($results->registrationreport->score)) {
+                    $reg->score = $results->registrationreport->score;
+                }
 				if ($result = update_record('scormcloud_registrations', $reg)) {
 					scormcloud_write_log('scormcloud_registrations updated');
 				}else{
