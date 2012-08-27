@@ -1,6 +1,6 @@
 /* Software License Agreement (BSD License)
  * 
- * Copyright (c) 2010-2011, Rustici Software, LLC
+ * Copyright (c) 2010-2012, Rustici Software, LLC
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -34,9 +34,10 @@ The scormcloud folder in the course/format folder goes in your course/format fol
 
  
 
-* Download the zip file from our public GitHub repository (https://github.com/RusticiSoftware/SCORMCloud_Moodle19Mod).
-* Extract the zip file locally.
-* Upload the directories according to the structure in the zip file (course/format to course/format, admin/report/scormcloud to admin/report/scormcloud and scormcloud to the moodleMod folder)
+* Download the module zip file from our public GitHub repository (https://github.com/RusticiSoftware/SCORMCloud_MoodleModule).
+* Download the format zip file from our public GitHub repository (https://github.com/RusticiSoftware/SCORMCloud_MoodleFormat).
+* Extract the zip files locally.
+* Upload the directories according to the structure in the zip file (format to course/format, admin/report/scormcloud to admin/report/scormcloud and mod/scormcloud to the moodleMod folder)
 * Log in as admin, go to the Notifications page, and the import scripts will run.
 * At this point, the mod will have been included.  The next steps relate to configuring your SCORM Cloud account.
 	* Go here to sign up for your Cloud account.  Your AppId and SecretKey will be delivered to you via email.
