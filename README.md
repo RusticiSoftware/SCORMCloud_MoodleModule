@@ -1,5 +1,5 @@
 # License
->   Copyright 2010-2011 Rustici Software. 
+>   Copyright 2010-2012 Rustici Software. 
 >   
 >   The SCORM Cloud Module is free software: you can redistribute it and/or
 >   modify it under the terms of the GNU General Public License as published
@@ -18,11 +18,13 @@
 This is the source code repository for the [SCORM Cloud Module for Moodle](http://scorm.com/moodle/).
 
 ### Installation
-* Obtain a copy of the module. You can download a zip file from our [GitHub downloads page](https://github.com/RusticiSoftware/SCORMCloud_MoodleModule/downloads), or you can clone the Git repository.
+* Obtain a copy of the module (this repository).
+* Obtain a copy of the format. [Moodle Format Repo](https://github.com/RusticiSoftware/SCORMCloud_MoodleFormat)
+	* You can download a zip file of both from our [GitHub downloads page](https://github.com/RusticiSoftware/SCORMCloud_MoodleModule/downloads), or you can clone the Git repositories.
 	* If you download a zip file, extract it after you finish.
 * Upload/copy the directories in the module to the installation directory of your Moodle instance.
-	* course-format/scormcloud --> course/format folder in Moodle
-	* mod/scormcloud --> mod folder in Moodle
+	* format --> course/format folder in Moodle
+	* module mod/scormcloud --> mod folder in Moodle
 * Log in with an administrator account and Moodle will show you a list of modules to be upgraded/installed. Click upgrade.
 * To use and configure the module, you'll need to [sign up for a SCORM Cloud account](https://cloud.scorm.com/sc/guest/SignUpForm).
 * When prompted to configure the SCORM Cloud Module, enter the information available on your 'Apps' page on the SCORM Cloud website.
