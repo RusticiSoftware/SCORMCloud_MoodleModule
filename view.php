@@ -35,7 +35,6 @@
 require_once("../../config.php");
 require_once("lib.php");
 require_once("locallib.php");
-require_once('constants.php');
 
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
 require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
@@ -43,52 +42,36 @@ require_once('SCORMCloud_PHPLibrary/CourseData.php');
 
 global $DB;
 $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
-$a  = optional_param('a', 0, PARAM_INT);  // scormcloud ID
+$a  = optional_param('a', 0, PARAM_INT);  // scormcloud ID.
 
 if (!empty($id)) {
-	$cm = get_coursemodule_from_id('scormcloud', $id, 0, false, MUST_EXIST);
-	$course = $DB->get_record("course", array("id" => $cm->course), '*', MUST_EXIST);
-	$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array("id" => $cm->instance), '*', MUST_EXIST);
+    $cm = get_coursemodule_from_id('scormcloud', $id, 0, false, MUST_EXIST);
+    $course = $DB->get_record("course", array("id" => $cm->course), '*', MUST_EXIST);
+    $scormcloud = $DB->get_record('scormcloud', array("id" => $cm->instance), '*', MUST_EXIST);
 } else if (!empty($a)) {
-	$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array("id" => $a), '*', MUST_EXIST);
-	$course = $DB->get_record("course", array('id' => $scormcloud->course), '*', MUST_EXIST);
-	$cm = get_coursemodule_from_instance(SCORMCLOUD_TABLE, $scormcloud->id, $course->id, false, MUST_EXIST);
+    $scormcloud = $DB->get_record('scormcloud', array("id" => $a), '*', MUST_EXIST);
+    $course = $DB->get_record("course", array('id' => $scormcloud->course), '*', MUST_EXIST);
+    $cm = get_coursemodule_from_instance('scormcloud', $scormcloud->id, $course->id, false, MUST_EXIST);
 } else {
-	error('A required parameter is missing');
+    error('A required parameter is missing');
 }
-
-$module = $course->format;
 
 require_login($course->id);
 
 add_to_log($course->id, "scormcloud", "view", "view.php?id=$cm->id", "$scormcloud->id");
 
-/// Print the page header
+// Print the page header.
 $strscormclouds = get_string("modulenameplural", "scormcloud");
 $strscormcloud  = get_string("modulename", "scormcloud");
 
-$navlinks = array();
-$navlinks[] = array('name' => $strscormclouds, 'link' => "index.php?id=$course->id", 'type' => 'activity');
-$navlinks[] = array('name' => format_string($scormcloud->name), 'link' => '', 'type' => 'activityinstance');
-
-$navigation = build_navigation($navlinks);
-
 $PAGE->set_url('/mod/scormcloud/view.php', array('id' => $cm->id));
 $PAGE->set_title($scormcloud->name);
+$PAGE->set_button($OUTPUT->update_module_button($cm->id, 'scormcloud'));
 $PAGE->set_heading($course->shortname);
+echo $OUTPUT->header();
 
-print_header_simple(format_string($scormcloud->name), "", $navigation, "", "", true,
-update_module_button($cm->id, $course->id, $strscormcloud), navmenu($course, $cm));
+// Print the main part of the page.
+scormcloud_course_format_display($USER, $course);
 
-/// Print the main part of the page
-
-$moduleformat = 'scormcloud_course_format_display';
-if (function_exists($moduleformat)) {
-	//error_log($moduleformat);
-	$moduleformat($USER,$course);
-} else {
-	notify('The module '. $module. ' is not implemented properly. (Programmer Error)');
-}
-
-/// Finish the page
-$OUTPUT->footer();
+// Finish the page.
+echo $OUTPUT->footer();

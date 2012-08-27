@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/scormcloud/db" VERSION="20120823" COMMENT="XMLDB file for Moodle mod/scormcloud"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+        >
+    <TABLES>
+        <TABLE NAME="scormcloud" COMMENT="this table tracks the courses for scormcloud" NEXT="scormcloud_registrations">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="cloudid"/>
+                <FIELD NAME="cloudid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Unique identifier for course on the SCORM Cloud" PREVIOUS="id" NEXT="course"/>
+                <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Course scormcloud activity belongs to" PREVIOUS="cloudid" NEXT="name"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances" PREVIOUS="course" NEXT="timecreated"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="name" NEXT="timemodified"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated" NEXT="scoreformat"/>
+                <FIELD NAME="scoreformat" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timemodified" NEXT="allowpreview"/>
+                <FIELD NAME="allowpreview" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="scoreformat" NEXT="allowreview"/>
+                <FIELD NAME="allowreview" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="allowpreview"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+            </INDEXES>
+        </TABLE>
+        <TABLE NAME="scormcloud_registrations" COMMENT="scormcloud_registrations table retrofitted from MySQL" PREVIOUS="scormcloud">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="true" NEXT="scormcloudid"/>
+                <FIELD NAME="scormcloudid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="userid"/>
+                <FIELD NAME="userid" TYPE="int" LENGTH="11" NOTNULL="true" SEQUENCE="false" PREVIOUS="scormcloudid" NEXT="regid"/>
+                <FIELD NAME="regid" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" PREVIOUS="userid" NEXT="completion"/>
+                <FIELD NAME="completion" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="completion status column" PREVIOUS="regid" NEXT="satisfaction"/>
+                <FIELD NAME="satisfaction" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Satisfaction status for course" PREVIOUS="completion" NEXT="score"/>
+                <FIELD NAME="score" TYPE="number" LENGTH="20" NOTNULL="false" SEQUENCE="false" DECIMALS="2" COMMENT="Score for course" PREVIOUS="satisfaction" NEXT="totaltime"/>
+                <FIELD NAME="totaltime" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false" COMMENT="Total time tracked for the course" PREVIOUS="score"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB>

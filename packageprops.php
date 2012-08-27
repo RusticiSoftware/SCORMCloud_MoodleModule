@@ -21,20 +21,25 @@
  *   along with the SCORM Cloud Module.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * This file replaces the legacy STATEMENTS section in db/install.xml,
- * lib.php/modulename_install() post installation hook and partially defaults.php
- *
- * @package   mod_scormcloud
- * @copyright 2011 Rustici Software
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+require_once("../../config.php");
+require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
+require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
+require_once('SCORMCloud_PHPLibrary/CourseData.php');
+require_once($CFG->dirroot . '/mod/scormcloud/lib.php');
+require_once($CFG->dirroot . '/mod/scormcloud/locallib.php');
 
-/**
- * Post installation procedure
- */
-function xmldb_scormcloud_install() {
+$id = required_param('id', PARAM_INT);
 
-    /// insert here code to perform some actions
-    
+$scormcloud = $DB->get_record('scormcloud', array('id' => $id));
+
+require_login($scormcloud->course);
+if (!scormcloud_hascapabilitytolaunch($scormcloud->course)) {
+    error("You do not have permission to launch this course.");
 }
+
+$scormservice = scormcloud_get_service();
+$courseservice = $scormservice->getCourseService();
+$cssurl = $CFG->wwwroot . '/mod/scormcloud/packageprops.css';
+
+echo '<script language="javascript">window.location.href = "'.
+    $courseservice->GetPropertyEditorUrl($scormcloud->cloudid, $cssurl, null).'";</script>';

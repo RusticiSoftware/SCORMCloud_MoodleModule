@@ -423,31 +423,6 @@ when one of its submenus is visible.
 
 }
 
-.reportage .yuimenu .topscrollbar {
-
-    background-image: url(../img/menu_up_arrow.png);
-
-}
-
-.reportage .yuimenu .topscrollbar_disabled {
-
-    background-image: url(../img/menu_up_arrow_disabled.png);
-
-}
-
-.reportage .yuimenu .bottomscrollbar {
-
-    background-image: url(../img/menu_down_arrow.png);
-
-}
-
-.reportage .yuimenu .bottomscrollbar_disabled {
-
-    background-image: url(../img/menu_down_arrow_disabled.png);
-
-}
-
-
 /* MenuItem and MenuBarItem styles */
 
 .reportage .yuimenuitem {

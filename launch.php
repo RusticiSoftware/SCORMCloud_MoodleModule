@@ -1,5 +1,3 @@
-<html>
-<head>
 <?php
 
 /*
@@ -24,7 +22,6 @@
  */
 
 require_once("../../config.php");
-require_once('constants.php');
 require_once("locallib.php");
 require_once("lib.php");
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
@@ -34,30 +31,31 @@ require_once('SCORMCloud_PHPLibrary/CourseData.php');
 global $CFG;
 global $DB;
 
-$courseid = required_param('courseid', PARAM_INT);
+$id = required_param('courseid', PARAM_INT); // This is not the Moodle courseid it's the scormcloud->id.
 $mode = optional_param('mode', 'launch', PARAM_ALPHA);
 
 $userid = $USER->id;
 $regid = '';
 
-$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $courseid));
+$scormcloud = $DB->get_record('scormcloud', array('id' => $id));
 
 require_login($scormcloud->course);
 if (!scormcloud_hascapabilitytolaunch($scormcloud->course)) {
     error("You do not have permission to launch this course.");
 }
+$PAGE->requires->js('/mod/scormcloud/request.js', true);
 
-$ScormService = scormcloud_get_service();
+    $ScormService = scormcloud_get_service();
 $regService = $ScormService->getRegistrationService();
 
 $log->logDebug('Checking for Moodle registration.');
 // Check to see if there is an initial registration
-if (!$regs = $DB->get_records_select('scormcloud_registrations','userid='.$userid.' AND scormcloudid='.$courseid)) {
-	$log->logInfo("Registration does not exist in Moodle for course $courseid and user $userid; creating.");
+if (!$regs = $DB->get_records_select('scormcloud_registrations','userid='.$userid.' AND scormcloudid='.$id)) {
+	$log->logInfo("Registration does not exist in Moodle for course $scormcloud->course and scormcloudcourse $id and user $userid; creating.");
 
 	$regid = md5(uniqid());
 	$reg = array();
-	$reg['scormcloudid'] = $courseid;
+	$reg['scormcloudid'] = $id;
 	$reg['userid'] = $userid;
 	$reg['regid'] = $regid;
 	$reg['lastaccess'] = time();
@@ -78,8 +76,6 @@ if (!$regs = $DB->get_records_select('scormcloud_registrations','userid='.$useri
 	$log->logInfo("Moodle registration exists, using registration $regid.");
 }
 
-echo get_string("launchmessage","scormcloud");
-
 $url = '';
 if ($mode == 'preview') {
 	$courseService = $ScormService->getCourseService();
@@ -87,24 +83,11 @@ if ($mode == 'preview') {
 } else {
 	$url = $regService->GetLaunchUrl($regid, $CFG->wwwroot . '/mod/scormcloud/courseexit.php?id=' . $regid);
 }
+$PAGE->set_pagelayout('popup');
+echo $OUTPUT->header();
 
+// TODO: ideally this stuff should use js as per standard moodle guidelines.
 echo '<script>window.open("'. $url .'",null,"width=1000,height=800");</script>';
-
-echo '<script>';
-echo 'function RollupRegistration(regid) {';
-echo PHP_EOL;
-echo 'window.frames[0].document.location.href = "rollupregistration.php?regid="+regid;';
-echo PHP_EOL;
-echo '}';
-echo PHP_EOL;
-echo 'setInterval("RollupRegistration(\"'.$regid.'\")",30000);';
-echo PHP_EOL;
-echo '</script>';
-
-?>
-</head>
-<frameset onunload="" rows="*,0">
-	<frame id="rollupreg" src="blank.html" />
-	<frame id="blank" src="blank.html" />
-</frameset>
-</html>
+echo '<script>setInterval("RollupRegistration(\"'.$regid.'\")",30000);</script>';
+echo '<p>'.get_string("launchmessage","scormcloud").'</p>';
+echo $OUTPUT->footer();

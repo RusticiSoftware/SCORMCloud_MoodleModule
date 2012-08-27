@@ -37,8 +37,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once('constants.php');
-
 function scormcloud_supports($feature) {
     switch ($feature) {
         case FEATURE_MOD_INTRO: return false;
@@ -59,33 +57,29 @@ function scormcloud_add_instance($scormcloud, $mform=null) {
     global $DB;
 
     $scormcloud->timecreated = time();
-    
-    $cmid = $scormcloud->coursemodule;
-    $context = get_context_instance(CONTEXT_MODULE, $cmid);
-    
+
     if ($mform) {
         $packagefile = $mform->save_temp_file('packagefile');
         if ($packagefile !== false) {
             require_once('locallib.php');
             $cloud = scormcloud_get_service();
             $course_service = $cloud->getCourseService();
-            
-            $courseid = scormcloud_gen_uuid();
-            $scormcloud->cloudid = $courseid;
-            
-            $results = $course_service->ImportCourse($courseid, $packagefile);
+
+            $scormcloud->cloudid = scormcloud_gen_uuid();
+
+            $results = $course_service->ImportCourse($scormcloud->cloudid, $packagefile);
             unlink($packagefile);
-            
+
             $result = current($results);
             if (!$result->getWasSuccessful()) {
                 print_error('import error', 'scormcloud', $result->getMessage());
             }
-            
+
             $scormcloud->name = $result->getTitle();
         }
     }
 
-    return $DB->insert_record(SCORMCLOUD_TABLE, $scormcloud);
+    return $DB->insert_record('scormcloud', $scormcloud);
 }
 
 /**
@@ -99,32 +93,31 @@ function scormcloud_add_instance($scormcloud, $mform=null) {
 function scormcloud_update_instance($scormcloud, $mform=null) {
     global $DB;
 
-    $scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $scormcloud->instance));
+    $scormcloud = $DB->get_record('scormcloud', array('id' => $scormcloud->instance));
     $scormcloud->timemodified = time();
-    
+
     if ($mform) {
         $packagefile = $mform->save_temp_file('packagefile');
         if ($packagefile !== false) {
             require_once('locallib.php');
             $cloud = scormcloud_get_service();
             $course_service = $cloud->getCourseService();
-            
-            $courseid = $scormcloud->cloudid;
-            
-            // PHP lib is somewhat out-of-sync with Cloud API. versionCourse no longer exists, use ImportCourse instead which auto-versions. 
-            $results = $course_service->ImportCourse($courseid, $packagefile);
+
+            // PHP lib is somewhat out-of-sync with Cloud API. versionCourse no longer exists,
+            // use ImportCourse instead which auto-versions.
+            $results = $course_service->ImportCourse($scormcloud->cloudid, $packagefile);
             unlink($packagefile);
-            
+
             $result = current($results);
             if (!$result->getWasSuccessful()) {
                 print_error('import error', 'scormcloud', $result->getMessage());
             }
-            
+
             $scormcloud->name = $result->getTitle();
         }
     }
-    
-    return $DB->update_record(SCORMCLOUD_TABLE, $scormcloud);
+
+    return $DB->update_record('scormcloud', $scormcloud);
 }
 
 /**
@@ -138,11 +131,11 @@ function scormcloud_update_instance($scormcloud, $mform=null) {
 function scormcloud_delete_instance($id) {
     global $DB;
 
-    if (! $scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $id))) {
+    if (! $scormcloud = $DB->get_record('scormcloud', array('id' => $id))) {
         return false;
     }
 
-    $DB->delete_records(SCORMCLOUD_TABLE, array('id' => $scormcloud->id));
+    $DB->delete_records('scormcloud', array('id' => $scormcloud->id));
 
     return true;
 }
@@ -184,7 +177,7 @@ function scormcloud_user_complete($course, $user, $mod, $scormcloud) {
  * @todo Finish documenting this function
  */
 function scormcloud_print_recent_activity($course, $viewfullnames, $timestart) {
-    return false;  //  True if anything was printed, otherwise false
+    return false;  // True if anything was printed, otherwise false.
 }
 
 /**
@@ -242,7 +235,7 @@ function scormcloud_scale_used($scormcloudid, $scaleid) {
 function scormcloud_scale_used_anywhere($scaleid) {
     global $DB;
 
-    if ($scaleid and $DB->record_exists(SCORMCLOUD_TABLE, 'grade', -$scaleid)) {
+    if ($scaleid and $DB->record_exists('scormcloud', 'grade', -$scaleid)) {
         return true;
     } else {
         return false;
@@ -250,7 +243,7 @@ function scormcloud_scale_used_anywhere($scaleid) {
 }
 
 function scormcloud_install() {
-	return true;
+    return true;
 }
 
 /**
@@ -264,8 +257,7 @@ function scormcloud_uninstall() {
 }
 
 function scormcloud_get_user_data($uid) {
-	global $CFG;
-	global $DB;
+    global $DB;
 
     return $DB->get_record('user', array('id' => $uid));
 }

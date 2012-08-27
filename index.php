@@ -33,7 +33,7 @@
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 
-$id = required_param('id', PARAM_INT);   // course
+$id = required_param('id', PARAM_INT); // Course.
 
 $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 
@@ -41,7 +41,7 @@ require_course_login($course);
 
 add_to_log($course->id, 'scormcloud', 'view all', "index.php?id=$course->id", '');
 
-/// Print the header
+// Print the header.
 
 $PAGE->set_url('/mod/scormcloud/view.php', array('id' => $id));
 $PAGE->set_title($course->fullname);
@@ -49,7 +49,7 @@ $PAGE->set_heading($course->shortname);
 
 echo $OUTPUT->header();
 
-/// Get all the appropriate data
+// Get all the appropriate data.
 
 if (! $scormclouds = get_all_instances_in_course('scormcloud', $course)) {
     echo $OUTPUT->heading(get_string('noscormclouds', 'scormcloud'), 2);
@@ -58,7 +58,7 @@ if (! $scormclouds = get_all_instances_in_course('scormcloud', $course)) {
     die();
 }
 
-/// Print the list of instances (your module will probably extend this)
+// Print the list of instances (your module will probably extend this).
 
 $timenow  = time();
 $strname  = get_string('name');
@@ -78,10 +78,10 @@ if ($course->format == 'weeks') {
 
 foreach ($scormclouds as $scormcloud) {
     if (!$scormcloud->visible) {
-        //Show dimmed if the mod is hidden
+        // Show dimmed if the mod is hidden.
         $link = '<a class="dimmed" href="view.php?id='.$scormcloud->coursemodule.'">'.format_string($scormcloud->name).'</a>';
     } else {
-        //Show normal if the mod is visible
+        // Show normal if the mod is visible.
         $link = '<a href="view.php?id='.$scormcloud->coursemodule.'">'.format_string($scormcloud->name).'</a>';
     }
 
@@ -94,12 +94,12 @@ foreach ($scormclouds as $scormcloud) {
 
 echo $OUTPUT->heading(get_string('modulenameplural', 'scormcloud'), 2);
 
-$newTable = new html_table();
-$newTable->head = $table->head;
-$newTable->align = $table->align;
-$newTable->data = $table->data;
-echo html_writer::table($newTable);
+$newtable = new html_table();
+$newtable->head = $table->head;
+$newtable->align = $table->align;
+$newtable->data = $table->data;
+echo html_writer::table($newtable);
 
-/// Finish the page
+// Finish the page.
 
 echo $OUTPUT->footer();

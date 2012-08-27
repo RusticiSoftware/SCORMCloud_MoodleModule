@@ -22,14 +22,19 @@
  */
 
 /**
- * Constant values used by the SCORM Cloud module
+ * This file replaces the legacy STATEMENTS section in db/install.xml,
+ * lib.php/modulename_install() post installation hook and partially defaults.php
  *
  * @package   mod_scormcloud
  * @copyright 2011 Rustici Software
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+/**
+ * Post installation procedure
+ */
+function xmldb_scormcloud_install() {
 
-define('SCORMCLOUD_TABLE', 'scormcloud');
-define('REGISTRATIONS_TABLE', 'scormcloud_registrations');
+    // Insert here code to perform some actions.
+
+}

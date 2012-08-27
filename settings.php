@@ -21,29 +21,14 @@
  *   along with the SCORM Cloud Module.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once("../../config.php");
-require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
-require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
-require_once('SCORMCloud_PHPLibrary/CourseData.php');
-require_once('constants.php');
-require_once('locallib.php');
+$settings->add(new admin_setting_heading('scormcloud_method_heading', get_string('generalconfig', 'scormcloud'),
+                   get_string('explaingeneralconfig', 'scormcloud'), 'Missing Text'));
 
-global $CFG;
-global $DB;
+$settings->add(new admin_setting_configtext('scormcloud_serviceurl', get_string('serviceurl', 'scormcloud'),
+                   get_string('serviceurl_desc', 'scormcloud'), 'http://cloud.scorm.com/EngineWebServices/'));
 
-$courseid = required_param('id', PARAM_INT);   // course id
+$settings->add(new admin_setting_configtext('scormcloud_appid', get_string('appid', 'scormcloud'),
+                   get_string('appid_desc', 'scormcloud'), null));
 
-$scormcloud = $DB->get_record(SCORMCLOUD_TABLE, array('id' => $courseid));
-
-require_login($scormcloud->course);
-if (!scormcloud_hascapabilitytolaunch($scormcloud->course)) {
-    error("You do not have permission to launch this course.");
-}
-
-$ScormService = scormcloud_get_service();
-$courseService = $ScormService->getCourseService();
-$cssurl = $CFG->wwwroot . '/mod/scormcloud/packageprops.css';
-
-echo '<script language="javascript">window.location.href = "'.$courseService->GetPropertyEditorUrl($scormcloud->cloudid, $cssurl, null).'";</script>';
-
-?>
+$settings->add(new admin_setting_configtext('scormcloud_secretkey', get_string('secretkey', 'scormcloud'),
+                   get_string('secretkey_desc', 'scormcloud'), null));
