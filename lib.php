@@ -72,7 +72,7 @@ function scormcloud_add_instance($scormcloud, $mform=null) {
 
             $result = current($results);
             if (!$result->getWasSuccessful()) {
-                print_error('import error', 'scormcloud', $result->getMessage());
+                print_error('importerror', 'scormcloud', $result->getMessage());
             }
 
             $scormcloud->name = $result->getTitle();
@@ -110,7 +110,7 @@ function scormcloud_update_instance($scormcloud, $mform=null) {
 
             $result = current($results);
             if (!$result->getWasSuccessful()) {
-                print_error('import error', 'scormcloud', $result->getMessage());
+                print_error('importerror', 'scormcloud', $result->getMessage());
             }
 
             $scormcloud->name = $result->getTitle();

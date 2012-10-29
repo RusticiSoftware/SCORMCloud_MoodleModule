@@ -60,7 +60,7 @@ $string['launchmessage'] = 'Your course is being launched in a new window. This 
 
 $string['estimatedduration'] = "Estimated Duration";
 
-$string['import error'] = 'There was a problem uploading and importing your course to the SCORM Cloud: $a';
+$string['importerror'] = 'There was a problem uploading and importing your course to the SCORM Cloud: $a';
 
 $string['noregmessage'] = 'You have not attempted this course yet.<br/> Click <strong>Launch Course</strong> above to begin.';
 
