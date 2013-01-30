@@ -28,8 +28,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-?>
-<?php
 require_once("../../config.php");
 require_once('SCORMAPI/ScormEngineService.php');
 require_once('SCORMAPI/ServiceRequest.php');
@@ -37,11 +35,9 @@ require_once('SCORMAPI/CourseData.php');
 require_once('lib.php');
 require_once('locallib.php');
 
-
-global $CFG;
-
 $id = required_param('id', PARAM_RAW);
-$mode = required_param('mode', PARAM_RAW);
+$mode = required_param('mode', PARAM_ALPHA);
+require_login();
 
 $ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
 $regService = $ScormService->getRegistrationService();

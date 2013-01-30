@@ -46,7 +46,11 @@
 	{
 		$mode = 'new';
 	}
-	
+    require_login($id);
+    $context = get_context_instance(CONTEXT_COURSE, $id);
+    if (!has_capability('moodle/course:manageactivities', $context)) {
+        redirect($CFG->wwwroot . '/course/view.php?id=' . $id);
+    }
 	$id = str_replace('%7C','|',$id);
 
 	$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);

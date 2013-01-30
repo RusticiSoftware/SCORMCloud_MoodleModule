@@ -40,16 +40,11 @@ require_once('SCORMAPI/ScormEngineService.php');
 require_once('SCORMAPI/ServiceRequest.php');
 require_once('SCORMAPI/CourseData.php');
 
+    $courseid = required_param('courseid', PARAM_INT);
+    require_login();
 
-global $CFG;
+    $userid = $USER->id;
 
-//get the courseid and userid
-
-//require login on this page
-
-	$courseid = required_param('courseid', PARAM_INT);
-	$userid = required_param('userid', PARAM_INT);
-	
 	//echo $courseid . '<br>';
 	//echo $userid;
 	
@@ -72,7 +67,7 @@ global $CFG;
 			$reg['scormcloudid'] = $courseid;
 			$reg['userid'] = $userid;
 			$reg['regid'] = $regid;
-			$reg['lastaccess'] = date();
+			$reg['lastaccess'] = time();
 			
 			//insert the first registration
 			insert_record('scormcloud_registrations', $reg, $returnid=true, $primarykey='id') ;

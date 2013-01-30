@@ -42,7 +42,7 @@ require_once('SCORMAPI/ServiceRequest.php');
 require_once('SCORMAPI/CourseData.php');
 
 $regid = required_param("regid");
-
+require_login();
 //scormcloud_write_log($regxml);
 if($regid != null){
 	scormcloud_write_log('rollupregistration.php called : regid = ' . $regid);

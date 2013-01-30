@@ -36,8 +36,7 @@ require_once('SCORMAPI/ScormEngineService.php');
 require_once('SCORMAPI/ServiceRequest.php');
 require_once('SCORMAPI/CourseData.php');
 
-
-global $CFG;
+require_login();
 
 //is current user an admin?
 $isAdmin = false;
@@ -65,13 +64,13 @@ echo '<div class="scormcloud-admin-page">';
 
 if ($isAdmin) {
 
-$courseid = $_GET['courseid'];
+$courseid = optional_param('courseid', 0, PARAM_INT);
 
 $ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
 
 $regService = $ScormService->getRegistrationService();
 
-if(isset($courseid)){
+if(!empty($courseid)){
 	$allResults = $regService->GetRegistrationList(null,$courseid);
 	$courseService = $ScormService->getCourseService();
 	$allCourses = $courseService->GetCourseList();
@@ -84,6 +83,7 @@ if(isset($courseid)){
 	}
 	
 }else{
+    $courseTitle = 'all courses';
 	$allResults = $regService->GetRegistrationList(null,null);
 }
 

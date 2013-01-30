@@ -28,8 +28,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-?>
-<?php
     require_once('../../config.php');
 	global $CFG;
 	
@@ -46,6 +44,11 @@
 	$location = required_param('location', PARAM_RAW);
 	$success = required_param('success', PARAM_RAW);
 
+    require_login();
+    $context = get_context_instance(CONTEXT_COURSE, SITEID); //TODO. change to real courseid.
+    if (!has_capability('moodle/course:manageactivities', $context)) {
+        redirect($CFG->wwwroot);
+    }
 	error_log('Creating ScormService : '.$CFG->scormcloud_serviceurl.' - '.$CFG->scormcloud_appid.' - '.$CFG->scormcloud_secretkey);
 	$ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
 	$courseService = $ScormService->getCourseService();
@@ -73,7 +76,7 @@ if($success=='true')
 		$scormcloud = array('id' => $scormcloudid,
 						 'course' => $courseId,
 						 'name' => $importResult->getTitle(),
-						 'timecreated' => date(),
+						 'timecreated' => time(),
 						 'scoreformat' => '0');
 		scormcloud_update_instance($scormcloud);
 		
@@ -91,7 +94,7 @@ if($success=='true')
 		$scormcloud = array('id' => $scormcloudid,
 						 'course' => $courseId,
 						 'name' => $irxml->importresult->title,
-						 'timecreated' => date(),
+						 'timecreated' => time(),
 						 'scoreformat' => '0');
 		scormcloud_update_instance($scormcloud);
 		scormcloud_write_log('scormcloud_mod import complete');
