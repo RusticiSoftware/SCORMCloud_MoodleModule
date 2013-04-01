@@ -1,4 +1,4 @@
-<?php  // $Id: access.php,v 1.1.2.2 2008/11/29 14:31:00 skodak Exp $
+<?php
 
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
@@ -25,7 +25,7 @@
 
 $report_scormcloud_capabilities = array(
 
-    'report/courseoverview:view' => array(
+    'report/scormcloud:view' => array(
         'riskbitmask' => RISK_PERSONAL,
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,

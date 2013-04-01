@@ -28,15 +28,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-?>
-<?php
 require_once("../../config.php");
 require_once('SCORMAPI/ScormEngineService.php');
 require_once('SCORMAPI/ServiceRequest.php');
 require_once('SCORMAPI/CourseData.php');
 
-
-global $CFG;
+require_login();
 
 //is current user an admin?
 $isAdmin = false;

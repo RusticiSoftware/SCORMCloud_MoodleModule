@@ -28,8 +28,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-?>
-<?php
 require_once("../../config.php");
 require_once('SCORMAPI/ScormEngineService.php');
 require_once('SCORMAPI/ServiceRequest.php');
@@ -39,6 +37,11 @@ require_once('SCORMAPI/CourseData.php');
 global $CFG;
 
 $id = required_param('id', PARAM_INT);   // course id
+require_login($id);
+$context = get_context_instance(CONTEXT_COURSE, $id);
+if (!has_capability('moodle/course:manageactivities', $context)) {
+    redirect($CFG->wwwroot . '/course/view.php?id=' . $id);
+}
 
 $ScormService = new ScormEngineService($CFG->scormcloud_serviceurl,$CFG->scormcloud_appid,$CFG->scormcloud_secretkey);
 $courseService = $ScormService->getCourseService();
