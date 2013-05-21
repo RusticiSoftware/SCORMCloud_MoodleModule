@@ -35,7 +35,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once('lib.php');
+require_once($CFG->dirroot.'/mod/scormcloud/lib.php');
 require_once('lib/KLogger.php');
 
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
