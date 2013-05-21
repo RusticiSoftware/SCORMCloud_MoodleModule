@@ -35,7 +35,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once('lib.php');
+require_once($CFG->dirroot.'/mod/scormcloud/lib.php');
 require_once('lib/KLogger.php');
 
 require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
@@ -83,7 +83,7 @@ function scormcloud_course_format_display($user, $course) {
     echo '<script type="text/javascript" ';
     echo "src=\"{$CFG->wwwroot}/mod/scormcloud/scripts/table2CSV.js\"></script>\n";
     echo '<script type="text/javascript" ';
-    echo "src=\"http://cloud.scorm.com/Reportage/scripts/reportage.combined.nojquery.js\"></script>\n";
+    echo "src=\"//cloud.scorm.com/Reportage/scripts/reportage.combined.nojquery.js\"></script>\n";
     echo '<link rel="stylesheet" ';
     echo "href=\"{$CFG->wwwroot}/mod/scormcloud/css/reportage.combined.css\" type=\"text/css\" media=\"screen\" />\n";
     echo '<link rel="stylesheet" ';
