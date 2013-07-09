@@ -35,6 +35,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+global $CFG; //needed as locallib.php is included by add/update_instance functions.
 require_once($CFG->dirroot.'/mod/scormcloud/lib.php');
 require_once('lib/KLogger.php');
 
