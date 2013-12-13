@@ -94,7 +94,7 @@ if ($regid != null) {
     echo '<h2>Saving results...</h2>';
     echo '<script>setTimeout("window.opener.parent.location = window.opener.parent.location;window.close();", 5000);</script>';
 } else {
-    echo '<h2>Please wait while the course exists</h2>';
+    echo '<h2>Please wait while the course exits</h2>';
     echo '<script>setInterval("window.opener.parent.location = window.opener.parent.location;window.close();", 500);</script>';
 }
 
