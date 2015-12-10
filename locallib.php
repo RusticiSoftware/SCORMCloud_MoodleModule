@@ -51,10 +51,10 @@ $log = new KLogger('/tmp', KLogger::DEBUG);
 function scormcloud_get_service() {
     global $CFG;
     global $log;
-    $module = new stdClass();
+    $plugin = new stdClass();
     require('version.php');
 
-    $origin = ScormEngineUtilities::getCanonicalOriginString('Rustici Software', 'Moodle', '2.0-' . $module->version);
+    $origin = ScormEngineUtilities::getCanonicalOriginString('Rustici Software', 'Moodle', '2.0-' . $plugin->version);
 
     $log->logDebug("Building ScormEngineService with origin = $origin");
     return new ScormEngineService($CFG->scormcloud_serviceurl, $CFG->scormcloud_appid, $CFG->scormcloud_secretkey, $origin);
