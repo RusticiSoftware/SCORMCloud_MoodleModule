@@ -19,11 +19,7 @@ This is the source code repository for the [SCORM Cloud Module for Moodle](http:
 
 ### Installation
 * Obtain a copy of the module (this repository).
-* Obtain a copy of the format. [Moodle Format Repo](https://github.com/RusticiSoftware/SCORMCloud_MoodleFormat)
-	* You can download a zip file of both from our [GitHub downloads page](https://github.com/RusticiSoftware/SCORMCloud_MoodleModule/downloads), or you can clone the Git repositories.
-	* If you download a zip file, extract it after you finish.
 * Upload/copy the directories in the module to the installation directory of your Moodle instance.
-	* format files --> course/format folder in Moodle
 	* module files --> mod/scormcloud folder in Moodle
 * Log in with an administrator account and Moodle will show you a list of modules to be upgraded/installed. Click upgrade.
 * To use and configure the module, you'll need to [sign up for a SCORM Cloud account](https://cloud.scorm.com/sc/guest/SignUpForm).
@@ -31,7 +27,7 @@ This is the source code repository for the [SCORM Cloud Module for Moodle](http:
 	* The Service URL is http://cloud.scorm.com/EngineWebServices/
 	
 ### Usage
-Create a course as usual in Moodle, but select the SCORM Cloud format option from the dropdown. After you finish the standard Moodle course configuration, the SCORM Cloud module will display a form for you to upload your SCORM course to the Cloud.
+Create a course as usual in Moodle, but select the Single activity format option and then the SCORM Cloud activity option. After you finish the standard Moodle course configuration, the SCORM Cloud module will display a form for you to upload your SCORM course to the Cloud.
 
 You can also use SCORM Cloud courses within other Moodle course formats like "weekly" by selecting "SCORM Cloud Course" from the "Add an activity" dropdown on the course outline page.
 
