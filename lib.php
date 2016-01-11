@@ -206,41 +206,6 @@ function scormcloud_get_participants($scormcloudid) {
     return false;
 }
 
-/**
- * This function returns if a scale is being used by one scormcloud
- * if it has support for grading and scales. Commented code should be
- * modified if necessary. See forum, glossary or journal modules
- * as reference.
- *
- * @param int $scormcloudid ID of an instance of this module
- * @return mixed
- * @todo Finish documenting this function
- */
-function scormcloud_scale_used($scormcloudid, $scaleid) {
-    global $DB;
-
-    $return = false;
-
-    return $return;
-}
-
-/**
- * Checks if scale is being used by any instance of scormcloud.
- * This function was added in 1.9
- *
- * This is used to find out if scale used anywhere
- * @param $scaleid int
- * @return boolean True if the scale is used by any scormcloud
- */
-function scormcloud_scale_used_anywhere($scaleid) {
-    global $DB;
-
-    if ($scaleid and $DB->record_exists('scormcloud', 'grade', -$scaleid)) {
-        return true;
-    } else {
-        return false;
-    }
-}
 
 function scormcloud_install() {
     return true;
