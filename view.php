@@ -40,7 +40,6 @@ require_once('SCORMCloud_PHPLibrary/ScormEngineService.php');
 require_once('SCORMCloud_PHPLibrary/ServiceRequest.php');
 require_once('SCORMCloud_PHPLibrary/CourseData.php');
 
-global $DB;
 $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or
 $a  = optional_param('a', 0, PARAM_INT);  // scormcloud ID.
 
@@ -56,9 +55,19 @@ if (!empty($id)) {
     error('A required parameter is missing');
 }
 
-require_login($course->id);
+require_login($course->id, false, $cm);
 
-add_to_log($course->id, "scormcloud", "view", "view.php?id=$cm->id", "$scormcloud->id");
+// Trigger course_module_viewed event.
+$params = array(
+    'context' => context_module::instance($cm->id),
+    'objectid' => $scormcloud->id
+);
+
+$event = \mod_scormcloud\event\course_module_viewed::create($params);
+$event->add_record_snapshot('course_modules', $cm);
+$event->add_record_snapshot('course', $course);
+$event->add_record_snapshot('scormcloud', $scormcloud);
+$event->trigger();
 
 // Print the page header.
 $strscormclouds = get_string("modulenameplural", "scormcloud");
