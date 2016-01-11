@@ -234,12 +234,14 @@ function scormcloud_scale_used($scormcloudid, $scaleid) {
  */
 function scormcloud_scale_used_anywhere($scaleid) {
     global $DB;
-
-    if ($scaleid and $DB->record_exists('scormcloud', 'grade', -$scaleid)) {
+/*
+// not implemented, yet. (missing "grade" field in "scormcloud" table )
+    if ($scaleid and $DB->record_exists('scormcloud', array('grade'=> -$scaleid))) {
         return true;
     } else {
         return false;
     }
+*/
 }
 
 function scormcloud_install() {
