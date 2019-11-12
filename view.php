@@ -75,7 +75,6 @@ $strscormcloud  = get_string("modulename", "scormcloud");
 
 $PAGE->set_url('/mod/scormcloud/view.php', array('id' => $cm->id));
 $PAGE->set_title($scormcloud->name);
-$PAGE->set_button($OUTPUT->update_module_button($cm->id, 'scormcloud'));
 $PAGE->set_heading($course->shortname);
 echo $OUTPUT->header();
 
