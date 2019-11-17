@@ -40,6 +40,8 @@ $regid = '';
 $scormcloud = $DB->get_record('scormcloud', array('id' => $id));
 
 require_login($scormcloud->course);
+$PAGE->set_url('/mod/scorm/launch.php', array('id' => $id, 'mode' => $mode));
+
 if (!scormcloud_hascapabilitytolaunch($scormcloud->course)) {
     error("You do not have permission to launch this course.");
 }
